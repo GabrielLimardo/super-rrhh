@@ -56,7 +56,7 @@
 											<td>{{ $company->identification_nro }}</td>
 											<td>{{ $company->fantasy_name }}</td>
 											<td>{{ $company->legal_name }}</td>
-											<td>{{ $company->status }}</td>
+											<td> {{ $company->status == 1 ? 'Activo': 'Inactivo' }} </td>
 
                                             <td>
                                                 <form action="{{ route('companies.destroy',$company->id) }}" method="POST">

@@ -357,6 +357,16 @@ return [
                     'text' => 'Document type',
                     'url'  => '#',
                 ],
+                [
+                    'text' => 'Payment type',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Holidays type',
+                    'url'  => '#',
+                ],
+
+
             ],
         ],
         [
@@ -378,12 +388,7 @@ return [
         //     'label'       => 4,
         //     'label_color' => 'success',
         // ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+      
         // [
         //     'text' => 'change_password',
         //     'url'  => 'admin/settings',
@@ -413,6 +418,11 @@ return [
         ],
 
         ['header' => 'HERRAMIENTAS'],
+        [
+            'text' => 'Salary pay',
+            'url'  => '#',
+            'icon' => 'fas fa-money-bill-wave',
+        ],
         [
             'text' => 'Holidays',
             'url'  => '#',
