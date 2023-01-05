@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Company</h1>
+    <h1> Management </h1>
 @stop
 
 @section('template_title')
-    Company
+    Management
 @endsection
 
 @section('content')
@@ -17,11 +17,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Company') }}
+                                {{ __('Management') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('companies.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('managements.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -40,30 +40,26 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Identification Nro</th>
-										<th>Fantasy Name</th>
-										<th>Legal Name</th>
-                                        <th>Code</th>
-										<th>Status</th>
+										<th>Name</th>
+										<th>Branch Id</th>
+										<th>Code</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($companies as $company)
+                                    @foreach ($management as $management)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $company->identification_nro }}</td>
-											<td>{{ $company->fantasy_name }}</td>
-											<td>{{ $company->legal_name }}</td>
-                                            <td>{{ $company->code }}</td>
-											<td> {{ $company->status == 1 ? 'Activo': 'Inactivo' }} </td>
+											<td>{{ $management->name }}</td>
+											<td>{{ $management->branch_id }}</td>
+											<td>{{ $management->code }}</td>
 
                                             <td>
-                                                <form action="{{ route('companies.destroy',$company->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('companies.show',$company->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('companies.edit',$company->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                <form action="{{ route('managements.destroy',$management->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('managements.show',$management->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('managements.edit',$management->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
@@ -76,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $companies->links() !!}
+                {!! $management->links() !!}
             </div>
         </div>
     </div>

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 
 /**
- * Class UserController
+ * Class BranchController
  * @package App\Http\Controllers
  */
-class UserController extends Controller
+class BranchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
+        $branches = Branch::paginate();
 
-        return view('user.index', compact('users'))
-            ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
+        return view('branch.index', compact('branches'))
+            ->with('i', (request()->input('page', 1) - 1) * $branches->perPage());
     }
 
     /**
@@ -31,8 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User();
-        return view('user.create', compact('user'));
+        $branch = new Branch();
+        return view('branch.create', compact('branch'));
     }
 
     /**
@@ -43,12 +43,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(User::$rules);
+        request()->validate(Branch::$rules);
 
-        $user = User::create($request->all());
+        $branch = Branch::create($request->all());
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully.');
+        return redirect()->route('branches.index')
+            ->with('success', 'Branch created successfully.');
     }
 
     /**
@@ -59,9 +59,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $branch = Branch::find($id);
 
-        return view('user.show', compact('user'));
+        return view('branch.show', compact('branch'));
     }
 
     /**
@@ -72,26 +72,26 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $branch = Branch::find($id);
 
-        return view('user.edit', compact('user'));
+        return view('branch.edit', compact('branch'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  User $user
+     * @param  Branch $branch
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Branch $branch)
     {
-        request()->validate(User::$rules);
+        request()->validate(Branch::$rules);
 
-        $user->update($request->all());
+        $branch->update($request->all());
 
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+        return redirect()->route('branches.index')
+            ->with('success', 'Branch updated successfully');
     }
 
     /**
@@ -101,9 +101,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
+        $branch = Branch::find($id)->delete();
 
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        return redirect()->route('branches.index')
+            ->with('success', 'Branch deleted successfully');
     }
 }

@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ManagementController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +27,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('users',UserController::class);
 Route::resource('companies',CompanyController::class);
+Route::resource('branches',BranchController::class);
+Route::resource('managements',ManagementController::class);
 
 Route::middleware([
     'auth:sanctum',

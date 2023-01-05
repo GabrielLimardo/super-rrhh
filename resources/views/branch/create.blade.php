@@ -1,7 +1,11 @@
-{{-- @extends('adminlte::page') --}}
+@extends('adminlte::page')
+
+@section('content_header')
+    <h1> Create Branch</h1>
+@stop
 
 @section('template_title')
-    Create Company
+    Create Branch
 @endsection
 
 @section('content')
@@ -13,13 +17,13 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Company</span>
+                        <span class="card-title">Create Branch</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('companies.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('branches.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('company.form')
+                            @include('branch.form')
 
                         </form>
                     </div>

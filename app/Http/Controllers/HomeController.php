@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Company;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -26,12 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (!!is_null(Auth::user()->company_id)) {
-            $company = new Company();
-            return view('home', compact('company'));
-        }else {
-            # code...
-        }
-        
+        return view('home');
     }
 }

@@ -5,20 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Company
+ * Class Management
  *
  * @property $id
- * @property $identification_nro
- * @property $fantasy_name
- * @property $legal_name
- * @property $status
+ * @property $name
+ * @property $branch_id
+ * @property $code
  * @property $updated_at
  * @property $created_at
  *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Company extends Model
+class Management extends Model
 {
     
     static $rules = [
@@ -31,7 +30,7 @@ class Company extends Model
      *
      * @var array
      */
-    protected $fillable = ['identification_nro','fantasy_name','legal_name','status'];
+    protected $fillable = ['name','branch_id','code'];
 
 
 

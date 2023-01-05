@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Management extends Model
 {
-    protected $table = 'companies';
+    protected $table = 'managements';
     
     protected $primaryKey= 'id';
 
     protected $fillable = [
         'id',
-        'identification_nro',
-        'fantasy_name',
-        'legal_name',
+        'name',
+        'branch_id',
         'code',
-        'status'
     ];
 }
