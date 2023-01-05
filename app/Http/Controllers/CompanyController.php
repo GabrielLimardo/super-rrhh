@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\companies_x_users;
 
 /**
  * Class CompanyController
@@ -43,12 +46,21 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Company::$rules);
+        // request()->validate(Company::$rules);
 
-        $company = Company::create($request->all());
+            $company = Company::create($request->all());
 
-        return redirect()->route('companies.index')
-            ->with('success', 'Company created successfully.');
+            $user = User::find(Auth::user()->id);
+            $user->company_id =  $company->id;
+            $user->save();
+
+            companies_x_users::create([
+                'company_id'=> $company->id,
+                'user_id'=>Auth::user()->id
+            ]);
+
+            return redirect()->route('companies.index')
+                ->with('success', 'Company created successfully.');
     }
 
     /**

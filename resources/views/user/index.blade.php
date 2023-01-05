@@ -1,4 +1,9 @@
 @extends('adminlte::page')
+
+@section('content_header')
+    <h1>User</h1>
+@stop
+
 @section('template_title')
     User
 @endsection
@@ -36,16 +41,11 @@
                                         <th>No</th>
                                         
 										<th>Name</th>
+			                            <th>Last Name</th>
 										<th>Email</th>
-										<th>Last Name</th>
 										<th>Document Type</th>
 										<th>Document Nro</th>
-										<th>Identification Doc</th>
-										<th>Terms Agreements</th>
 										<th>Labor Profile</th>
-										<th>Company Id</th>
-										<th>Branch Id</th>
-										<th>Management Id</th>
 										<th>Status</th>
 										<th>Admission Date</th>
 										<th>Egress Date</th>
@@ -59,16 +59,10 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $user->name }}</td>
-											<td>{{ $user->email }}</td>
 											<td>{{ $user->last_name }}</td>
+											<td>{{ $user->email }}</td>
 											<td>{{ $user->document_type }}</td>
-											<td>{{ $user->document_nro }}</td>
-											<td>{{ $user->identification_doc }}</td>
-											<td>{{ $user->terms_agreements }}</td>
-											<td>{{ $user->labor_profile }}</td>
-											<td>{{ $user->company_id }}</td>
-											<td>{{ $user->branch_id }}</td>
-											<td>{{ $user->management_id }}</td>
+											<td>{{ $user->document_nro }}</td>											<td>{{ $user->labor_profile }}</td>
 											<td>{{ $user->status }}</td>
 											<td>{{ $user->admission_date }}</td>
 											<td>{{ $user->egress_date }}</td>

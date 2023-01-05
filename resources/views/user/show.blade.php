@@ -1,4 +1,9 @@
 @extends('adminlte::page')
+
+@section('content_header')
+    <h1>Show User</h1>
+@stop
+
 @section('template_title')
     {{ $user->name ?? 'Show User' }}
 @endsection

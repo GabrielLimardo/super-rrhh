@@ -371,7 +371,7 @@ return [
         ],
         [
             'text'    => 'Users Settings',
-            'url'  => '#',
+            'url'  => 'users',
             'icon'    => 'fas fa-users',
         ],
        

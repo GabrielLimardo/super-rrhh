@@ -1,4 +1,10 @@
 @extends('adminlte::page')
+
+@section('content_header')
+    <h1>Update User</h1>
+@stop
+
+
 @section('template_title')
     Update User
 @endsection

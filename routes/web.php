@@ -25,15 +25,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('users',UserController::class);
-Route::resource('companies',CompanyController::class);
-Route::resource('branches',BranchController::class);
-Route::resource('managements',ManagementController::class);
-
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
+
 ])->group(function () {
-   
+    Route::resource('users',UserController::class);
+    Route::resource('companies',CompanyController::class);
+    Route::resource('branches',BranchController::class);
+    Route::resource('managements',ManagementController::class);
 });

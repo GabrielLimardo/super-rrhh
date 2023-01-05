@@ -32,11 +32,6 @@
             {!! $errors->first('identification_doc', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
-            {{ Form::label('terms_agreements') }}
-            {{ Form::text('terms_agreements', $user->terms_agreements, ['class' => 'form-control' . ($errors->has('terms_agreements') ? ' is-invalid' : ''), 'placeholder' => 'Terms Agreements']) }}
-            {!! $errors->first('terms_agreements', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
             {{ Form::label('labor_profile') }}
             {{ Form::text('labor_profile', $user->labor_profile, ['class' => 'form-control' . ($errors->has('labor_profile') ? ' is-invalid' : ''), 'placeholder' => 'Labor Profile']) }}
             {!! $errors->first('labor_profile', '<div class="invalid-feedback">:message</div>') !!}

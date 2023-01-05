@@ -1,4 +1,10 @@
 @extends('adminlte::page')
+
+@section('content_header')
+    <h1>Create User</h1>
+@stop
+
+
 @section('template_title')
     Create User
 @endsection
