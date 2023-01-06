@@ -332,39 +332,47 @@ return [
         [
             'text'    => 'Company Settings',
             'icon'    => 'fas fa-building',
-            'can' => 'users.index',
+            'can' => 'company settings',
             'submenu' => [
                 [
                     'text' => 'Company',
                     'url'  => 'companies',
+                    'can' => 'company index',
                 ],
                 [
                     'text' => 'Branch',
                     'url'  => 'branches',
+                    'can' => 'branch index',
                 ],
                 [
                     'text' => 'Management',
                     'url'  => 'managements',
+                    'can' => 'management index',
                 ],
                 [
-                    'text'    => 'Roles',
+                    'text'    => 'Roles & Permissions',
                     'url'     => 'roles',
+                    'can' => 'roles index',
                 ],
                 [
                     'text' => 'Visual',
                     'url'  => '#',
+                    'can' => 'visual index',
                 ],
                 [
                     'text' => 'Document type',
                     'url'  => '#',
+                    'can' => 'document type index',
                 ],
                 [
                     'text' => 'Payment type',
                     'url'  => '#',
+                    'can' => 'payment index',
                 ],
                 [
                     'text' => 'Holidays type',
                     'url'  => '#',
+                    'can' => 'holidays index',
                 ],
 
 
@@ -374,6 +382,7 @@ return [
             'text'    => 'Users Settings',
             'url'  => 'users',
             'icon'    => 'fas fa-users',
+            'can' => 'users index',
         ],
        
 
@@ -401,53 +410,63 @@ return [
             'text' => 'Individual upload',
             'url'  => '#',
             'icon' => 'fas fa-file-alt',
+            'can' => 'individual upload',
         ],
         [
             'text' => 'Split upload',
             'url'  => '#',
             'icon' => 'fas fa-cut',
+            'can' => 'split upload',
         ],
         [
             'text' => 'Masive upload',
             'url'  => '#',
             'icon' => 'fas fa-copy',
+            'can' => 'masive upload',
         ],
         [
             'text' => 'Signer documents',
             'url'  => '#',
             'icon' => 'fas fa-signature ',
+            'can' => 'signer document',
         ],
 
-        ['header' => 'HERRAMIENTAS'],
+        ['header' => 'TOOLS'],
         [
             'text' => 'Salary pay',
             'url'  => '#',
             'icon' => 'fas fa-money-bill-wave',
+            'can' => 'tool salary pay index',
         ],
         [
             'text' => 'Holidays',
             'url'  => '#',
             'icon' => 'fas fa-plane-departure',
+            'can' => 'tool holidays index',
         ],
         [
             'text' => 'Signer',
             'url'  => '#',
             'icon' => 'fas fa-file-signature',
+            'can' => 'tool signer index',
         ],
         [
             'text' => 'Staff search',
             'url'  => '#',
             'icon' => 'fas fa-search',
+            'can' => 'tool staff search index',
         ],
         [
             'text' => 'Staff Development',
             'url'  => '#',
             'icon' => 'fas fa-running',
+            'can' => 'tool staff development index',
         ],
         [
             'text' => 'Rrhh help',
             'url'  => '#',
             'icon' => 'fas fa-phone',
+            'can' => 'tool rrhh help index',
         ],
 
         

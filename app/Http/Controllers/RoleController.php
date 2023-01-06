@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Session;
 
 /**
  * Class RoleController
@@ -73,8 +75,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
+        $permissions = Permission::all();
 
-        return view('role.edit', compact('role'));
+        return view('role.edit', compact('role','permissions'));
     }
 
     /**
@@ -86,12 +89,57 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        request()->validate(Role::$rules);
+        // request()->validate(Role::$rules);
 
-        $role->update($request->all());
+        // $role->update($request->all());
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        $role = Role::findOrFail($role->id);//Get role with the given id
+        //Validate name and permission fields
+        $rules = [
+          'name'=>'required|unique:roles,name,'.$role->id,
+          'permissions' =>'required',
+        ];
+        $messages = [
+          'name.unique' => 'The role ' . $request->name . ' is already in our database. ' . 'Please choose another.',
+          'permissions.required' => 'You must select at least one (1) permission.',
+        ];
+
+        // $validator = Validator::make($request->all(), $rules, $messages);
+      	// if ($validator->fails()) {
+      	// 	$flash_message = [
+      	// 		'title' => 'Oops!',
+      	// 		'status' => 'danger',
+      	// 		'message' => 'Please correct all the errors below.',
+      	// 	];
+      	// 	Session::flash('update_fail', $flash_message);
+      	// 	return redirect()->back()
+      	// 					 ->withErrors($validator)
+      	// 					 ->withInput();
+      	// }
+
+        $input = $request->except(['permissions', 'savebtn']);
+        $permissions = $request['permissions'];
+        $role->fill($input)->save();
+
+        // $p_all = Permission::all();//Get all permissions
+
+        // foreach ($p_all as $p) {
+        //     $role->revokePermissionTo($p); //Remove all permissions associated with role
+        // }
+
+        foreach ($permissions as $permission) {
+            $p = Permission::where('id', '=', $permission)->firstOrFail(); //Get corresponding form //permission in db
+            $role->syncPermissions($p);  //Assign permission to role
+        }
+
+        $flash_message = [
+          'title' => 'Well done!',
+          'status' => 'success',
+          'message' => 'Existing role has been successfully updated.',
+        ];
+
+        // Session::flash('update_success', $flash_message);
+        return redirect()->route('roles.index');
     }
 
     /**

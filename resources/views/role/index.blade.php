@@ -54,6 +54,7 @@
 
                                             <td>
                                                 <form action="{{ route('roles.destroy',$role->id) }}" method="POST">
+                                                    {{-- <a class="btn btn-warning" href="{{ route('roles.show',$role->id) }}"><i class="fas fa-low-vision"></i> Permissions </a> --}}
                                                     <a class="btn btn-sm btn-primary " href="{{ route('roles.show',$role->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
