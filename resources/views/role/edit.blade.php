@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">
@@ -20,12 +21,47 @@
                     <div class="card-header">
                         <span class="card-title">Update Role</span>
                     </div>
+                    
                     <div class="card-body">
                         <form method="POST" action="{{ route('roles.update', $role->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('role.form')
+                            <div class="box box-info padding-1">
+                                <div class="box-body">
+                                    
+                                    
+                                    <div class="form-group">
+                                        {{ Form::label('name') }}
+                                        {{ Form::text('name', $role->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Name']) }}
+                                        {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                            
+                                    <label>
+                                        <input title="Seleccionar todo" class="check" type="checkbox" value="" id="checkbox-all">
+                                            Select all
+                                    </label>
+                                    @foreach($permissions->chunk(10) as $chunkpermission)
+                                        <div class="row">
+                                            @foreach ($chunkpermission as $permission)
+                                                <div class="col-md-6">
+                                                    <div class="checkbox icheck">
+                                                        <label>
+                                                        <input type="checkbox" class="checkbox-admin" name="permissions[]" id="permissions[]" value="{{$permission->id}}" {{ $role->hasPermissionTo($permission->name) ? 'checked'  : '' }}>
+                                                        {{ $permission->name }}
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+
+                            
+                                </div>
+                                <div class="box-footer mt20">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>
@@ -33,4 +69,29 @@
             </div>
         </div>
     </section>
+
+
+    
+   
+
+    
+@endsection
+
+
+@section('js')
+
+
+<script>
+
+    // Lógica checkall
+    $(function () {
+        $('.check').on('click', function () {
+            $('.checkbox-admin').each(function(){ this.checked =  'checked' ; });
+        });
+    });
+
+
+</script>
+
+
 @endsection

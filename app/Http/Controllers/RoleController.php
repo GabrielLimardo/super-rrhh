@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+// use App\Models\Roles;
+
 use Session;
 
 /**
@@ -34,7 +36,8 @@ class RoleController extends Controller
     public function create()
     {
         $role = new Role();
-        return view('role.create', compact('role'));
+        $permissions = Permission::all();
+        return view('role.create', compact('role','permissions'));
     }
 
     /**
@@ -45,9 +48,21 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Role::$rules);
-
+        // request()->validate(Role::$rules);
+        // dd($request->all());
         $role = Role::create($request->all());
+        $role->guard_name= 'web';
+        $role->save();
+        $permissions = $request['permissions'];
+
+        $permiss_new = array();
+        foreach ($permissions as $permission) {
+            $p = Permission::where('id', '=', $permission)->firstOrFail(); //Get corresponding form //permission in db
+            $permiss_new[] = $p->name;
+            //Assign permission to role
+        }
+        // dd( $permiss_new);
+        $role->syncPermissions( $permiss_new);  
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully.');
@@ -92,7 +107,7 @@ class RoleController extends Controller
         // request()->validate(Role::$rules);
 
         // $role->update($request->all());
-
+     
         $role = Role::findOrFail($role->id);//Get role with the given id
         //Validate name and permission fields
         $rules = [
@@ -119,18 +134,22 @@ class RoleController extends Controller
 
         $input = $request->except(['permissions', 'savebtn']);
         $permissions = $request['permissions'];
+
         $role->fill($input)->save();
 
-        // $p_all = Permission::all();//Get all permissions
+        $p_all = Permission::all();//Get all permissions
 
-        // foreach ($p_all as $p) {
-        //     $role->revokePermissionTo($p); //Remove all permissions associated with role
-        // }
-
+        $permiss_new = array();
+        $prueba = 0;
         foreach ($permissions as $permission) {
-            $p = Permission::where('id', '=', $permission)->firstOrFail(); //Get corresponding form //permission in db
-            $role->syncPermissions($p);  //Assign permission to role
+            $p = Permission::where('id', '=', $permission)->firstOrFail(); 
+            //Get corresponding form //permission in db
+            $permiss_new[] = $p->name;
+            $prueba ++ ; 
+            //Assign permission to role
         }
+
+        $role->syncPermissions($permiss_new);  
 
         $flash_message = [
           'title' => 'Well done!',
