@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,6 @@ Route::middleware([
     Route::resource('companies',CompanyController::class);
     Route::resource('branches',BranchController::class);
     Route::resource('managements',ManagementController::class);
+    Route::resource('roles',RoleController::class);
+
 });
