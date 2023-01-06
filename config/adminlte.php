@@ -332,6 +332,7 @@ return [
         [
             'text'    => 'Company Settings',
             'icon'    => 'fas fa-building',
+            'can' => 'users.index',
             'submenu' => [
                 [
                     'text' => 'Company',
