@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Organization extends Model
 {
-    protected $table = 'managements';
+    protected $table = 'organizations';
 
     static $rules = [
     ];
