@@ -6,6 +6,13 @@
             {{ Form::text('identification_nro', $company->identification_nro, ['class' => 'form-control' . ($errors->has('identification_nro') ? ' is-invalid' : ''), 'placeholder' => 'Identification Nro']) }}
             {!! $errors->first('identification_nro', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+
+        <div class="form-group">
+            {{ Form::label('Organization') }}
+            {{ Form::text('organitazation_id', $company->organitazation_id, ['class' => 'form-control' . ($errors->has('organitazation_id') ? ' is-invalid' : ''), 'placeholder' => 'organitazation_id Nro']) }}
+            {!! $errors->first('organitazation_id', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+
         <div class="form-group">
             {{ Form::label('Fantasy name') }}
             {{ Form::text('fantasy_name', $company->fantasy_name, ['class' => 'form-control' . ($errors->has('fantasy_name') ? ' is-invalid' : ''), 'placeholder' => 'Fantasy Name']) }}

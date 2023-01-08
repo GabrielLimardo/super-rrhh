@@ -30,6 +30,11 @@
                             {{ $role->name }}
                         </div>
 
+                        <div class="form-group">
+                            <strong>Organization:</strong>
+                            {{ $role->organization_id }}
+                        </div>
+
                     </div>
                 </div>
             </div>

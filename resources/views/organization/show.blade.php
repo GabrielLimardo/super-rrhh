@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Show Company</h1>
+    <h1> Show Organization</h1>
 @stop
 
 @section('template_title')
-    {{ $company->name ?? 'Show Company' }}
+    {{ $organization->name ?? 'Show Organization' }}
 @endsection
 
 @section('content')
@@ -15,10 +15,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Company</span>
+                            <span class="card-title">Show Organization</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('companies.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('organizations.index') }}"> Back</a>
                         </div>
                     </div>
 
@@ -26,25 +26,19 @@
                         
                         <div class="form-group">
                             <strong>Identification Nro:</strong>
-                            {{ $company->identification_nro }}
+                            {{ $organization->identification_nro }}
                         </div>
-
-                        <div class="form-group">
-                            <strong>Organitazation:</strong>
-                            {{ $company->organitazation_id }}
-                        </div>
-
                         <div class="form-group">
                             <strong>Fantasy Name:</strong>
-                            {{ $company->fantasy_name }}
+                            {{ $organization->fantasy_name }}
                         </div>
                         <div class="form-group">
                             <strong>Legal Name:</strong>
-                            {{ $company->legal_name }}
+                            {{ $organization->legal_name }}
                         </div>
                         <div class="form-group">
-                            <strong>Status:</strong>
-                            {{ $company->status == 1 ? 'Activo': 'Inactivo' }}
+                            <strong>Code:</strong>
+                            {{ $organization->code }}
                         </div>
 
                     </div>

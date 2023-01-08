@@ -23,6 +23,7 @@ class User extends Authenticatable
         'identification_doc',
         'terms_agreements',
         'labor_profile',
+        'organization_id',
         'company_id',
         'branch_id',
         'management_id',

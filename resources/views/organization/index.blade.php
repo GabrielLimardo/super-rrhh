@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1> Role</h1>
+    <h1> Organization</h1>
 @stop
 
 @section('template_title')
-    Role
+    Organization
 @endsection
 
 @section('content')
@@ -17,14 +17,17 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Role') }}
+                                {{ __('Organization') }}
                             </span>
 
+                            @if (is_null(Auth::user()->organization_id))  
                              <div class="float-right">
-                                <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('organization.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
+                            @endif
+
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -40,28 +43,31 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Name</th>
-										<th>Organization</th>
+										<th>Identification Nro</th>
+										<th>Fantasy Name</th>
+										<th>Legal Name</th>
+										<th>Code</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($roles as $role)
+                                    @foreach ($organizations as $organization)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $role->name }}</td>
-											<td>{{ $role->organization_id }}</td>
+											<td>{{ $organization->identification_nro }}</td>
+											<td>{{ $organization->fantasy_name }}</td>
+											<td>{{ $organization->legal_name }}</td>
+											<td>{{ $organization->code }}</td>
 
                                             <td>
-                                                <form action="{{ route('roles.destroy',$role->id) }}" method="POST">
-                                                    {{-- <a class="btn btn-warning" href="{{ route('roles.show',$role->id) }}"><i class="fas fa-low-vision"></i> Permissions </a> --}}
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('roles.show',$role->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    @csrf
+                                                <form action="{{ route('organizations.destroy',$organization->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('organization.show',$organization->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('organization.edit',$organization->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    {{-- @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button> --}}
                                                 </form>
                                             </td>
                                         </tr>
@@ -71,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $roles->links() !!}
+                {!! $organizations->links() !!}
             </div>
         </div>
     </div>

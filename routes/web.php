@@ -6,6 +6,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\OrganizationController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +37,6 @@ Route::middleware([
     Route::resource('branches',BranchController::class);
     Route::resource('managements',ManagementController::class);
     Route::resource('roles',RoleController::class);
+    Route::resource('organization',OrganizationController::class);
 
 });

@@ -31,6 +31,12 @@
                                         {{ Form::text('name', $role->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Name']) }}
                                         {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
+
+                                    <div class="form-group">
+                                        {{ Form::label('organization') }}
+                                        {{ Form::text('name', $role->organization_id, ['class' => 'form-control' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => 'organization_id']) }}
+                                        {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
                             
                                    
                                     @foreach ($permissions as $permission)

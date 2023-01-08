@@ -15,5 +15,6 @@ class Roles extends Model
         'id',
         'name',
         'guard_name',
+        'organization_id'
     ];
 }

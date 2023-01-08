@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
+
 // use App\Models\Roles;
 
 use Session;
@@ -22,7 +24,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate();
+        $roles = Role::where('organization_id',Auth::user()->organization_id)->paginate();
 
         return view('role.index', compact('roles'))
             ->with('i', (request()->input('page', 1) - 1) * $roles->perPage());

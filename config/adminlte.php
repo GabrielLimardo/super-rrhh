@@ -330,10 +330,15 @@ return [
         ['header' => 'SETTINGS'],
 
         [
-            'text'    => 'Company Settings',
+            'text'    => 'Organization Settings',
             'icon'    => 'fas fa-building',
             'can' => 'company settings',
             'submenu' => [
+                [
+                    'text' => 'Organization',
+                    'url'  => 'organization',
+                    // 'can' => 'organization index',
+                ],
                 [
                     'text' => 'Company',
                     'url'  => 'companies',

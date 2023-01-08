@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>No</th>
                                         
+                                        <th>Organitazation </th>
 										<th>Identification Nro</th>
 										<th>Fantasy Name</th>
 										<th>Legal Name</th>
@@ -54,6 +55,7 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
+                                            <td>{{ $company->organitazation_id }}</td>
 											<td>{{ $company->identification_nro }}</td>
 											<td>{{ $company->fantasy_name }}</td>
 											<td>{{ $company->legal_name }}</td>

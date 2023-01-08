@@ -1,15 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Management
+ * Class Organization
  *
  * @property $id
- * @property $name
- * @property $branch_id
+ * @property $identification_nro
+ * @property $fantasy_name
+ * @property $legal_name
  * @property $code
  * @property $updated_at
  * @property $created_at
@@ -17,9 +18,10 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Management extends Model
+class Organization extends Model
 {
-    
+    protected $table = 'managements';
+
     static $rules = [
     ];
 
@@ -30,7 +32,7 @@ class Management extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','branch_id','code'];
+    protected $fillable = ['identification_nro','fantasy_name','legal_name','code'];
 
 
 

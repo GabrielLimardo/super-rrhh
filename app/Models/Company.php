@@ -17,6 +17,8 @@ class Company extends Model
         'fantasy_name',
         'legal_name',
         'code',
-        'status'
+        'status',
+        'organization_id'
+
     ];
 }

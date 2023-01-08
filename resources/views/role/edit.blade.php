@@ -37,6 +37,12 @@
                                         {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
                             
+                                    <div class="form-group">
+                                        {{ Form::label('organization') }}
+                                        {{ Form::text('name', $role->organization_id, ['class' => 'form-control' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => 'organization_id']) }}
+                                        {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+                                    
                                     <label>
                                         <input title="Seleccionar todo" class="check" type="checkbox" value="" id="checkbox-all">
                                             Select all
