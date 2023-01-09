@@ -361,7 +361,7 @@ return [
                 ],
                 [
                     'text' => 'Visual',
-                    'url'  => '#',
+                    'url'  => 'visual',
                     'can' => 'visual index',
                 ],
                 [

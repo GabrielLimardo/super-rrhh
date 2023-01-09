@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\OrganizationController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\VisualController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +40,6 @@ Route::middleware([
     Route::resource('managements',ManagementController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('organization',OrganizationController::class);
+    Route::resource('visual',VisualController::class);
 
 });

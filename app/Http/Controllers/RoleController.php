@@ -6,6 +6,8 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VisualDocument;
+use App\Models\VisualStatistic;
 
 // use App\Models\Roles;
 
@@ -50,21 +52,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        // request()->validate(Role::$rules);
-        // dd($request->all());
         $role = Role::create($request->all());
         $role->guard_name= 'web';
         $role->save();
+   
         $permissions = $request['permissions'];
 
-        $permiss_new = array();
-        foreach ($permissions as $permission) {
-            $p = Permission::where('id', '=', $permission)->firstOrFail(); //Get corresponding form //permission in db
-            $permiss_new[] = $p->name;
-            //Assign permission to role
+        if (!is_null($permissions)) {
+            $this->permission($permissions,$role);
         }
-        // dd( $permiss_new);
-        $role->syncPermissions( $permiss_new);  
+        
+        $this->create_visual( $role->id);
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully.');
@@ -175,4 +173,25 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
             ->with('success', 'Role deleted successfully');
     }
+
+    public function permission($permissions,$role)
+    {
+        $permiss_new = array();
+        foreach ($permissions as $permission) {
+            $p = Permission::where('id', '=', $permission)->firstOrFail(); //Get corresponding form //permission in db
+            $permiss_new[] = $p->name;
+        }
+        $role->syncPermissions( $permiss_new);  
+    }
+
+    public function create_visual($id)
+    {
+        VisualDocument::create([
+            'rol_id'=>$id,
+        ]);
+        VisualStatistic::create([
+            'rol_id'=>$id,
+        ]);
+    }
+    
 }
