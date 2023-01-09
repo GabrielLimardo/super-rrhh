@@ -38,7 +38,12 @@
                                         {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
                             
-                                   
+                                    <div class="form-group">
+                                        {{ Form::label('document_see') }}
+                                        {{ Form::number('document_see', $role->document_see, ['class' => 'form-control' . ($errors->has('document_see') ? ' is-invalid' : ''), 'placeholder' => 'document_see']) }}
+                                        {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+
                                     @foreach ($permissions as $permission)
                                         <div class="checkbox icheck">
                                             <label>

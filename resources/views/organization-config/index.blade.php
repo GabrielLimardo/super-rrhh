@@ -1,11 +1,7 @@
-@extends('adminlte::page')
-
-@section('content_header')
-    <h1> Role</h1>
-@stop
+@extends('layouts.app')
 
 @section('template_title')
-    Role
+    Organization Config
 @endsection
 
 @section('content')
@@ -17,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Role') }}
+                                {{ __('Organization Config') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('organization-configs.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -40,27 +36,34 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Name</th>
-										<th>Organization</th>
-										<th>Document can see</th>
+										<th>Organization Id</th>
+										<th>Send Email</th>
+										<th>Send Signature Email</th>
+										<th>Dissatisfied</th>
+										<th>Watch</th>
+										<th>Download</th>
+										<th>Sign First</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($roles as $role)
+                                    @foreach ($organizationConfigs as $organizationConfig)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $role->name }}</td>
-											<td>{{ $role->organization_id }}</td>
-											<td>{{ $role->document_see }}</td>
+											<td>{{ $organizationConfig->organization_id }}</td>
+											<td>{{ $organizationConfig->send_email }}</td>
+											<td>{{ $organizationConfig->send_signature_email }}</td>
+											<td>{{ $organizationConfig->dissatisfied }}</td>
+											<td>{{ $organizationConfig->watch }}</td>
+											<td>{{ $organizationConfig->download }}</td>
+											<td>{{ $organizationConfig->sign_first }}</td>
 
                                             <td>
-                                                <form action="{{ route('roles.destroy',$role->id) }}" method="POST">
-                                                    {{-- <a class="btn btn-warning" href="{{ route('roles.show',$role->id) }}"><i class="fas fa-low-vision"></i> Permissions </a> --}}
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('roles.show',$role->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                <form action="{{ route('organization-configs.destroy',$organizationConfig->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('organization-configs.show',$organizationConfig->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('organization-configs.edit',$organizationConfig->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
@@ -73,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $roles->links() !!}
+                {!! $organizationConfigs->links() !!}
             </div>
         </div>
     </div>

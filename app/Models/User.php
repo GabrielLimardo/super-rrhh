@@ -13,6 +13,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     
+    static $rules = [
+		'name' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+    ];
+
     protected $fillable = [
         'name',
         'email',

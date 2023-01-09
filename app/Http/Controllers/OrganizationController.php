@@ -7,6 +7,7 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\OrganizationConfig;
 /**
  * Class OrganizationController
  * @package App\Http\Controllers
@@ -16,7 +17,7 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        $organizations = Organization::paginate();
+        $organizations = Organization::where('id',Auth::user()->organization_id)->paginate();
 
         return view('organization.index', compact('organizations'))
             ->with('i', (request()->input('page', 1) - 1) * $organizations->perPage());
@@ -25,7 +26,8 @@ class OrganizationController extends Controller
     public function create()
     {
         $organization = new Organization();
-        return view('organization.create', compact('organization'));
+        $organizationConfig = new OrganizationConfig();
+        return view('organization.create', compact('organization','organizationConfig'));
     }
 
     public function store(Request $request)
@@ -36,6 +38,16 @@ class OrganizationController extends Controller
         if (is_null(Auth::user()->organization_id)) {
 
             $organization = Organization::create($request->all());
+
+            OrganizationConfig::create([
+                'organization_id'=> $organization->id,
+                'send_email'=> $request->send_email,
+                'send_signature_email'=> $request->send_signature_email,
+                'dissatisfied'=> $request->dissatisfied,
+                'watch'=> $request->watch,
+                'download'=> $request->download,
+                'sign_first'=>$request->sign_first
+            ]);
 
             $user = User::find(Auth::user()->id);
             $user->organization_id =  $organization->id;
@@ -54,15 +66,17 @@ class OrganizationController extends Controller
     public function show($id)
     {
         $organization = Organization::find($id);
+        $organizationConfig = OrganizationConfig::where('organization_id',$id)->first();
 
-        return view('organization.show', compact('organization'));
+        return view('organization.show', compact('organization','organizationConfig'));
     }
 
     public function edit($id)
     {
         $organization = Organization::find($id);
+        $organizationConfig = OrganizationConfig::where('organization_id',$id)->first();
 
-        return view('organization.edit', compact('organization'));
+        return view('organization.edit', compact('organization','organizationConfig'));
     }
 
     public function update(Request $request, Organization $organization)

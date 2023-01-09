@@ -35,6 +35,11 @@
                             {{ $role->organization_id }}
                         </div>
 
+                        <div class="form-group">
+                            <strong>Document can see:</strong>
+                            {{ $role->document_see }}
+                        </div>
+
                     </div>
                 </div>
             </div>

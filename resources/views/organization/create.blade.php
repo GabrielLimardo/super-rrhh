@@ -20,7 +20,7 @@
                         <span class="card-title">Create Organization</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('organizations.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('organization.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
                             @include('organization.form')

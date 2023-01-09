@@ -20,13 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $companies = companies_x_users::where('user_id', Auth::user()->id)->select('company_id')->get();
-        $companies_ids = array();
-        foreach ( $companies as $company_id ) {
-            $companies_ids []= $company_id->company_id;
-        }
-        $users = User::whereIn('company_id', $companies_ids)->paginate();
-
+        $users = User::where('organization_id', Auth::user()->organization_id)->paginate();
         return view('user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
     }

@@ -42,7 +42,13 @@
                                         {{ Form::text('organization_id', $role->organization_id, ['class' => 'form-control' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => 'organization_id']) }}
                                         {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
-                                    
+
+                                    <div class="form-group">
+                                        {{ Form::label('document_see') }}
+                                        {{ Form::number('document_see', $role->document_see, ['class' => 'form-control' . ($errors->has('document_see') ? ' is-invalid' : ''), 'placeholder' => 'document_see']) }}
+                                        {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                                    </div>
+
                                     <label>
                                         <input title="Seleccionar todo" class="check" type="checkbox" value="" id="checkbox-all">
                                             Select all

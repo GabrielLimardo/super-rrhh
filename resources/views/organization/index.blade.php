@@ -62,13 +62,8 @@
 											<td>{{ $organization->code }}</td>
 
                                             <td>
-                                                {{-- <form action="{{ route('organizations.destroy',$organization->id) }}" method="POST"> --}}
                                                     <a class="btn btn-sm btn-primary " href="{{ route('organization.show',$organization->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('organization.edit',$organization->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    {{-- @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button> --}}
-                                                {{-- </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -77,7 +72,6 @@
                         </div>
                     </div>
                 </div>
-                {!! $organizations->links() !!}
             </div>
         </div>
     </div>

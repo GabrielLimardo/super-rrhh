@@ -1,11 +1,7 @@
-@extends('adminlte::page')
-
-@section('content_header')
-    <h1> Update Organization</h1>
-@stop
+@extends('layouts.app')
 
 @section('template_title')
-    Update Organization
+    Update Organization Config
 @endsection
 
 @section('content')
@@ -17,14 +13,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Organization</span>
+                        <span class="card-title">Update Organization Config</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('organization.update', $organization->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('organization-configs.update', $organizationConfig->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('organization.form')
+                            @include('organization-config.form')
 
                         </form>
                     </div>
