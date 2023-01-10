@@ -366,7 +366,7 @@ return [
                 ],
                 [
                     'text' => 'Document type',
-                    'url'  => '#',
+                    'url'  => 'document-types',
                     'can' => 'document type index',
                 ],
                 [
