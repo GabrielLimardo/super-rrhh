@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\OrganizationConfig;
+use App\Models\Status;
+
 /**
  * Class OrganizationController
  * @package App\Http\Controllers
@@ -39,7 +41,7 @@ class OrganizationController extends Controller
 
             $organization = Organization::create($request->all());
 
-            OrganizationConfig::create([
+            $organization = OrganizationConfig::create([
                 'organization_id'=> $organization->id,
                 'send_email'=> $request->send_email,
                 'send_signature_email'=> $request->send_signature_email,
@@ -48,6 +50,8 @@ class OrganizationController extends Controller
                 'download'=> $request->download,
                 'sign_first'=>$request->sign_first
             ]);
+
+            $this->status_make_root($organization->id);
 
             $user = User::find(Auth::user()->id);
             $user->organization_id =  $organization->id;
@@ -96,4 +100,22 @@ class OrganizationController extends Controller
         return redirect()->route('organization.index')
             ->with('success', 'Organization deleted successfully');
     }
+
+
+    public function status_make_root($id)
+    {
+        Status::create([
+            'organization_id' => $id,
+            'name' => 'uploaded',
+        ]);
+        Status::create([
+            'organization_id' => $id,
+            'name' => 'signed',
+        ]);
+        Status::create([
+            'organization_id' => $id,
+            'name' => 'dissatisfied',
+        ]);
+    }
+  
 }

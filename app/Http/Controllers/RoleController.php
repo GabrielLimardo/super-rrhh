@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use App\Models\VisualDocument;
 use App\Models\VisualStatistic;
+use App\Models\Status;
 
 // use App\Models\Roles;
 
@@ -63,6 +64,12 @@ class RoleController extends Controller
         }
         
         $this->create_visual( $role->id);
+
+        Status::create([
+            'organization_id' => Auth::user()->organization_id,
+            'rol_id' => $role->id,
+            'name' => 'sign_'. $role->name,
+        ]);
 
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully.');

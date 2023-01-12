@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentType;
 use App\Models\DocumentStatus;
+use App\Models\Status;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-/**
- * Class DocumentTypeController
- * @package App\Http\Controllers
- */
+
 class DocumentTypeController extends Controller
 {
     /**
@@ -34,7 +33,8 @@ class DocumentTypeController extends Controller
     public function create()
     {
         $documentType = new DocumentType();
-        return view('document-type.create', compact('documentType'));
+        $states = Status::where('organization_id',Auth::user()->organization_id)->get();
+        return view('document-type.create', compact('documentType','states'));
     }
 
     /**
@@ -75,8 +75,9 @@ class DocumentTypeController extends Controller
     public function edit($id)
     {
         $documentType = DocumentType::find($id);
+        $states = Status::where('organization_id',Auth::user()->organization_id);
 
-        return view('document-type.edit', compact('documentType'));
+        return view('document-type.edit', compact('documentType','states'));
     }
 
     /**
