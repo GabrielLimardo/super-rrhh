@@ -1,6 +1,9 @@
-
+<!-- STYLES -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+
+<!-- pdfjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" integrity="sha512-tqaIiFJopq4lTBmFlWF0MNzzTpDsHyug8tJaaY0VkcH5AR2ANMJlcD+3fIL+RQ4JU3K6edt9OoySKfCCyKgkng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
@@ -308,6 +311,71 @@
 
 </style>
 
+<style>
+    .estados {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+    }
+
+    .estados .estado {
+        background: #5994de;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        padding-right: 20px;
+        position: relative;
+        cursor: pointer;
+        margin-left: 5px;
+        width: 220px;
+    }
+
+    .estados .estado span:nth-child(1) {
+        display: block;
+        background: #fff;
+        padding: 5px;
+        width: 31px;
+        padding-left: 11px;
+        border-radius: 50px;
+        margin-right: 12px;
+        color: #5994de;
+    }
+
+    .estados .estado .fas {
+        opacity: 0;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        transition: .5s;
+    }
+
+    .estados .estado .fas:hover {
+        color: #fa7975;
+        transform: scale3d(1.2, 1.2, 0.3);
+    }
+
+    .estados .estado:hover .fas {
+        opacity: 1;
+    }
+
+    .firmantes {
+        display: none;
+    }
+
+    .estados .flecha {
+        font-size: 40px;
+        color: #5994de;
+        margin: auto;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+    }
+
+    .estados .contenido {
+        display: flex;
+    }
+</style>
 
 @section('js')
 
