@@ -1,3 +1,11 @@
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" integrity="sha512-tqaIiFJopq4lTBmFlWF0MNzzTpDsHyug8tJaaY0VkcH5AR2ANMJlcD+3fIL+RQ4JU3K6edt9OoySKfCCyKgkng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+<script src="https://unpkg.com/jcrop"></script>
+
 <div class="box box-info padding-1">
     <div class="box-body">
         
@@ -46,7 +54,7 @@
             {{ Form::text('regex', $documentType->regex, ['class' => 'form-control' . ($errors->has('regex') ? ' is-invalid' : ''), 'placeholder' => 'Regex']) }}
             {!! $errors->first('regex', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
             {{ Form::label('c_up_left_x') }}
             {{ Form::text('c_up_left_x', $documentType->c_up_left_x, ['class' => 'form-control' . ($errors->has('c_up_left_x') ? ' is-invalid' : ''), 'placeholder' => 'C Up Left X']) }}
             {!! $errors->first('c_up_left_x', '<div class="invalid-feedback">:message</div>') !!}
@@ -105,7 +113,7 @@
             {{ Form::label('sign_son_wide') }}
             {{ Form::text('sign_son_wide', $documentType->sign_son_wide, ['class' => 'form-control' . ($errors->has('sign_son_wide') ? ' is-invalid' : ''), 'placeholder' => 'Sign Son Wide']) }}
             {!! $errors->first('sign_son_wide', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
+        </div> --}}
         <div class="col-12 mt-2">
             <input name="listField" type="text" class="listField" id="listField">
         </div>
@@ -156,6 +164,134 @@
               </table>
 
 
+
+
+               <div class="col-12 mt-2">
+            <div class="flujo">
+            </div>
+        </div> 
+
+
+        <div class="col-12 mt-2">
+            <label class="label subtitulo">Generación de coordenadas</label>
+            <hr>
+        </div>
+        
+        <div class="col-md-12">
+            <label for="file" id="textfile" class="boton_adjuntar"><i class="fas fa-paperclip"> </i> Subir pdf</label>
+            <input id="file" type="file" class="form-control" name="file">
+        </div>
+        <br>
+        <!-- Aquí se renderiza la imagen -->
+        <div class="d-flex justify-content-center">
+            <canvas style="display: none;" id="pdf_canvas"></canvas>
+            <img id="img" src="" alt="">
+        </div>
+        <br>
+
+      <!-- accordion para coordenadas-->
+        <div class="accordion" id="acordionCoordenadas">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button id="ocr-button" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        OCR
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#acordionCoordenadas">
+                    <div class="accordion-body">
+                        <div class="d-flex">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_arriba_izquierda_x') }}" id="c_arriba_izquierda_x" name="c_arriba_izquierda_x" placeholder="Coordenada X punto izquierdo superior">
+                                <label>Coordenada X punto izquierdo superior</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_arriba_izquierda_y') }}" id="c_arriba_izquierda_y" name="c_arriba_izquierda_y" placeholder="Coordenada Y punto izquierdo superior">
+                                <label>Coordenada Y punto izquierdo superior</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_abajo_derecha_x') }}" id="c_abajo_derecha_x" name="c_abajo_derecha_x" placeholder="Coordenada X punto derecho inferior">
+                                <label>Coordenada X punto derecho inferior</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_abajo_derecha_y') }}" id="c_abajo_derecha_y" name="c_abajo_derecha_y" placeholder="Coordenada Y punto izquierdo inferior">
+                                <label>Coordenada Y punto derecho inferior</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button id="empleador-button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        Coordenadas Empleador
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo" data-bs-parent="#acordionCoordenadas">
+                    <div class="accordion-body">
+
+                        <div class="d-flex mt-4">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleador_x') }}" id="c_empleador_x" name="c_empleador_x" placeholder="Coordenada Empleador X">
+                                <label>Coordenada Empleador X</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleador_y') }}" id="c_empleador_y" name="c_empleador_y" placeholder="Coordenada Empleador Y">
+                                <label>Coordenada Empleador Y</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('alto_empleador') }}" id="alto_empleador" name="alto_empleador" placeholder="Alto Empleador">
+                                <label>Alto P/Firma Empleador</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('ancho_empleador') }}" id="ancho_empleador" name="ancho_empleador" placeholder="Ancho Empleador">
+                                <label>Ancho P/Firma Empleador</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button id="empleado-button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        Coordenadas Empleado
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree" data-bs-parent="#acordionCoordenadas">
+                    <div class="accordion-body">
+
+                        <div class="d-flex">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleado_x') }}" id="c_empleado_x" name="c_empleado_x" placeholder="Coordenada Empleado X">
+                                <label>Coordenada Empleado X</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleado_y') }}" id="c_empleado_y" name="c_empleado_y" placeholder="Coordenada Empleado Y">
+                                <label>Coordenada Empleado Y</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('alto_empleado') }}" id="alto_empleado" name="alto_empleado" placeholder="Alto Empleador">
+                                <label>Alto P/Firma Empleado</label>
+                            </div>
+                            <div class="col-md-6 form-floating mb-1">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('ancho_empleado') }}" id="ancho_empleado" name="ancho_empleado" placeholder="Ancho Empleador">
+                                <label>Ancho P/Firma Empleado</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
  
     <div class="box-footer mt20">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -169,10 +305,112 @@
     #listField {
         visibility: hidden;
     }
+
 </style>
 
 
 @section('js')
+
+
+
+    <script>
+        let pdfDoc = null,
+        pageNum = 1,
+        pageRendering = false,
+        pageNumPending = null,
+        scale = 1,
+        canvas = document.getElementById('pdf_canvas'),
+        ctx = canvas.getContext('2d');
+
+    function generateImage(pageNum) {
+
+        pdfDoc.getPage(pageNum).then((page) => {
+            var viewport = page.getViewport({
+                scale: 10
+            });
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            var renderContext = {
+                canvasContext: ctx,
+                viewport: viewport
+            };
+            var renderTask = page.render(renderContext);
+            renderTask.promise.then(function() {
+                var img = canvas.toDataURL('image/png');
+                var viewport = page.getViewport({
+                    scale: scale
+                });
+
+                const image = document.getElementById('img')
+                image.src = img;
+                image.style.width = viewport.width + 'px';
+                image.style.height = viewport.height + 'px';
+
+                jcropConfig();
+
+            });
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    $('#file').on('change', function(e) {
+        e.preventDefault();
+        var file = $('#file')[0].files[0].name;
+        $(this).prev('label').text(file);
+
+        let url = URL.createObjectURL($('#file')[0].files[0]);
+
+        // load the pdf
+        pdfjsLib.getDocument(url).promise.then((doc) => {
+            pdfDoc = doc;
+            generateImage(1);
+        })
+    });
+
+    // jcrop configuration function
+    function jcropConfig() {
+        const jcrop = Jcrop.attach('img', {
+            multi: false
+        })
+
+        // jcrop configuration
+        jcrop.listen('crop.update', (widget, e) => {
+
+            var img = document.getElementById('img');
+            var img_width = img.width;
+            var img_height = img.height;
+
+            console.log(widget.pos);
+
+
+            //  si el botón está activo agrego los valores al input
+            if ($('#ocr-button').attr('aria-expanded') == 'true') {
+                document.getElementById('c_arriba_izquierda_x').value = widget.pos.x;
+                document.getElementById('c_arriba_izquierda_y').value = img_height - widget.pos.y;
+                document.getElementById('c_abajo_derecha_x').value = widget.pos.x + widget.pos.w;
+                document.getElementById('c_abajo_derecha_y').value = img_height - (widget.pos.y + widget.pos.h);
+            }
+
+            if ($('#empleador-button').attr('aria-expanded') == 'true') {
+                document.getElementById('c_empleador_x').value = widget.pos.x;
+                document.getElementById('c_empleador_y').value = -widget.pos.y;
+                document.getElementById('alto_empleador').value = widget.pos.h;
+                document.getElementById('ancho_empleador').value = widget.pos.w;
+            }
+
+            if ($('#empleado-button').attr('aria-expanded') == 'true') {
+                document.getElementById('c_empleado_x').value = widget.pos.x;
+                document.getElementById('c_empleado_y').value = -widget.pos.y;
+                document.getElementById('alto_empleado').value = widget.pos.h;
+                document.getElementById('ancho_empleado').value = widget.pos.w;
+            }
+
+        });
+    }
+    </script>
 
     <script>
         // Inicializar una variable para almacenar el número de elementos seleccionados
