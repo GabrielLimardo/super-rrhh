@@ -45,9 +45,19 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->listField);
         request()->validate(DocumentType::$rules);
 
         $documentType = DocumentType::create($request->all());
+        $array_listField = preg_split("/,/",$request->listField);
+
+        foreach ( $array_listField  as $status) {
+            DocumentStatus::create([
+                'organization_id' => Auth::user()->organization_id,
+                'status_id' => $status,
+                'document_type_id' => $documentType->id
+            ]);
+        }
 
         return redirect()->route('document-types.index')
             ->with('success', 'DocumentType created successfully.');

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocumentStatus extends Model
 {
-    
+
+  protected $table = 'document_x_status';
+
     static $rules = [
 		'organization_id' => 'required',
-		'rol_id' => 'required',
+    'document_type_id' => 'required',
     ];
 
     public $timestamps = false;
@@ -21,7 +23,7 @@ class DocumentStatus extends Model
      *
      * @var array
      */
-    protected $fillable = ['organization_id','rol_id'];
+    protected $fillable = ['organization_id','status_id','document_type_id'];
 
 
 

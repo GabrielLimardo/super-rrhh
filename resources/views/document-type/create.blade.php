@@ -5,11 +5,14 @@
 @stop
 
 
+
 @section('template_title')
     Create Document Type
 @endsection
 
 @section('content')
+{{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
