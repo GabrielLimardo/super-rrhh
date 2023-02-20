@@ -38,10 +38,10 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent()->nullable()->onUpdate('CURRENT_TIMESTAMP');
             $table->timestamp('created_at')->useCurrent();
             
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
-            $table->foreign('management_id')->references('id')->on('managements')->onDelete('cascade');
+            // $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            // $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            // $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            // $table->foreign('management_id')->references('id')->on('managements')->onDelete('cascade');
         });
     }
 

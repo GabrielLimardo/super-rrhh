@@ -37,7 +37,6 @@ return new class extends Migration
             $table->integer('sign_son_high')->nullable();
             $table->integer('sign_son_wide')->nullable();
             $table->index('organization_id');
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->timestamp('updated_at')->useCurrent()->nullable()->onUpdate('CURRENT_TIMESTAMP');
             $table->timestamp('created_at')->useCurrent();
         });
