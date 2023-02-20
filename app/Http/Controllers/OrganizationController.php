@@ -10,10 +10,6 @@ use App\Models\User;
 use App\Models\OrganizationConfig;
 use App\Models\Status;
 
-/**
- * Class OrganizationController
- * @package App\Http\Controllers
- */
 class OrganizationController extends Controller
 {
 

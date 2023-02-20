@@ -7,18 +7,8 @@ use App\Models\VisualStatistic;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
-
-/**
- * Class VisualDocumentController
- * @package App\Http\Controllers
- */
 class VisualController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
