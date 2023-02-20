@@ -471,7 +471,7 @@ return [
         [
             'text' => 'Tools PDF',
             'url'  => '#',
-            'icon' => 'fas fa-phone',
+            'icon' => 'fas fa-file-pdf',
             'can' => 'tool staff development index',
         ],
         [

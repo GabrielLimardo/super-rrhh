@@ -17,7 +17,7 @@
 		<pre><code>php artisan optimize &amp;&amp; php artisan route:cache &amp;&amp; php artisan config:clear &amp;&amp; php artisan cache:clear &amp;&amp; php artisan serve</code></pre>
 		<p>Use the following credentials to log in:</p>
 		<ul>
-			<li>Email: <code>hola@gmail.com</code></li>
+			<li>Email: <code>superrrhh@gmail.com</code></li>
 			<li>Password: <code>1234</code></li>
 		</ul>
 		<p>That's it! You should now be able to access the application at <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>.</p>
