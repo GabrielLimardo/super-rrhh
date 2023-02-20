@@ -10,6 +10,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\VisualController;
 use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\CertificadoController;
+
 
 
 /*
@@ -43,4 +45,8 @@ Route::middleware([
     Route::resource('organization',OrganizationController::class);
     Route::resource('visual',VisualController::class);
     Route::resource('document-types',DocumentTypeController::class);
+
+    Route::get('certificado',[CertificadoController::class,'newCertificado']);
+
+
 });

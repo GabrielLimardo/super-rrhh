@@ -25,6 +25,9 @@ class DocumentStatus extends Model
      */
     protected $fillable = ['organization_id','status_id','document_type_id'];
 
-
+    public function documentTypes()
+    {
+      return $this->belongsTo(DocumentType::class);
+    }
 
 }

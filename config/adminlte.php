@@ -381,6 +381,7 @@ return [
                 ],
 
 
+
             ],
         ],
         [
@@ -468,11 +469,18 @@ return [
             'can' => 'tool staff development index',
         ],
         [
+            'text' => 'Tools PDF',
+            'url'  => '#',
+            'icon' => 'fas fa-phone',
+            'can' => 'tool staff development index',
+        ],
+        [
             'text' => 'Rrhh help',
             'url'  => '#',
             'icon' => 'fas fa-phone',
             'can' => 'tool rrhh help index',
         ],
+
 
         
     ],

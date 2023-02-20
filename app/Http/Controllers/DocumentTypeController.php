@@ -34,7 +34,9 @@ class DocumentTypeController extends Controller
     {
         $documentType = new DocumentType();
         $states = Status::where('organization_id',Auth::user()->organization_id)->get();
+        // return view('document-type.create', compact('documentType','states'));
         return view('document-type.create', compact('documentType','states'));
+
     }
 
     /**
@@ -49,15 +51,16 @@ class DocumentTypeController extends Controller
         request()->validate(DocumentType::$rules);
 
         $documentType = DocumentType::create($request->all());
-        $array_listField = preg_split("/,/",$request->listField);
+        $statuses = $request->status;
 
-        foreach ( $array_listField  as $status) {
-            DocumentStatus::create([
+        $array_status = collect($statuses)->map(function ($status) {
+            return [
                 'organization_id' => Auth::user()->organization_id,
                 'status_id' => $status,
-                'document_type_id' => $documentType->id
-            ]);
-        }
+            ];
+        })->toArray();
+
+        $documentType->DocumentStatus()->sync($array_status);
 
         return redirect()->route('document-types.index')
             ->with('success', 'DocumentType created successfully.');
@@ -100,8 +103,19 @@ class DocumentTypeController extends Controller
     public function update(Request $request, DocumentType $documentType)
     {
         request()->validate(DocumentType::$rules);
-
+        
         $documentType->update($request->all());
+
+        // $array_listField = preg_split("/,/",$request->listField);
+        $statuses = $request->status;
+        $array_status = collect($statuses)->map(function ($status) {
+            return [
+                'organization_id' => Auth::user()->organization_id,
+                'status_id' => $status,
+            ];
+        })->toArray();
+
+        $documentType->DocumentStatus()->sync($array_status);
 
         return redirect()->route('document-types.index')
             ->with('success', 'DocumentType updated successfully');

@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,16 @@ class DatabaseSeeder extends Seeder
         // Permission::create(['name' => 'list.destroy'])->syncRoles($role1,$role2);
         // Permission::create(['name' => 'add'])->syncRoles($role1,$role2);
         // Permission::create(['name' => 'filterProduct'])->syncRoles($role1,$role2);
+
+        if (!User::where('email', 'hola@gmail.com')->exists()) {
+            // Crear el usuario
+            User::create([
+                'name' => 'Nombre del Usuario',
+                'email' => 'hola@gmail.com',
+                'password' =>Hash::make(1234),
+                ,
+            ]);
+        }
 
         Permission::create(['name' => 'company settings'])->syncRoles('SuperAdmin');
 

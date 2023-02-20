@@ -22,6 +22,7 @@ class VisualController extends Controller
     public function index()
     {
 
+
         $roles = Role::where('organization_id',Auth::user()->organization_id)->paginate();
 
         return view('visual.index', compact('roles'))
