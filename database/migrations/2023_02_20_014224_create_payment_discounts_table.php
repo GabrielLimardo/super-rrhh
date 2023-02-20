@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('descuentos_sueldo', function (Blueprint $table) {
+        Schema::create('payment_discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_tipo_pago')->constrained('tipos_de_pago');
-            $table->string('nombre');
-            $table->decimal('porcentaje', 5, 2);
+            $table->foreignId('payment_id')->constrained('payment_types');
+            $table->string('name');
+            $table->decimal('percentage', 5, 2);
         });
     }
 

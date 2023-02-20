@@ -371,7 +371,7 @@ return [
                 ],
                 [
                     'text' => 'Payment type',
-                    'url'  => '#',
+                    'url'  => 'payment-types',
                     'can' => 'payment index',
                 ],
                 [

@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historico_salarios_empleados', function (Blueprint $table) {
+        Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users');
-            $table->decimal('monto', 10, 2);
-            $table->boolean('ultimo')->default(false);
+            $table->string('name');
             $table->timestamp('updated_at')->useCurrent()->nullable()->onUpdate('CURRENT_TIMESTAMP');
             $table->timestamp('created_at')->useCurrent();
-
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historico_salarios_empleados');
+        Schema::dropIfExists('tipos_de_pago');
     }
 };

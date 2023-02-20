@@ -11,6 +11,7 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\VisualController;
 use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\CertificadoController;
+use App\Http\Controllers\PaymentTypesController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,6 +33,7 @@ Route::middleware([
     Route::resource('organization',OrganizationController::class);
     Route::resource('visual',VisualController::class);
     Route::resource('document-types',DocumentTypeController::class);
+    Route::resource('payment-types',PaymentTypesController::class);
 
     Route::get('certificado',[CertificadoController::class,'newCertificado']);
 

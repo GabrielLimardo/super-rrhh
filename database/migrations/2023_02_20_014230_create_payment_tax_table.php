@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cargas_impositivas', function (Blueprint $table) {
+        Schema::create('payment_tax', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_tipo_pago')->constrained('tipos_de_pago');
-            $table->string('nombre');
+            $table->foreignId('payment_id')->constrained('payment_types');
+            $table->string('name');
             $table->decimal('porcentaje', 5, 2);
         });
     }
