@@ -37,7 +37,6 @@ class DocumentTypeController extends Controller
 
         $array_status = collect($statuses)->map(function ($status) {
             return [
-                'organization_id' => Auth::user()->organization_id,
                 'status_id' => $status,
             ];
         })->toArray();
@@ -70,7 +69,6 @@ class DocumentTypeController extends Controller
         $statuses = $request->status;
         $array_status = collect($statuses)->map(function ($status) {
             return [
-                'organization_id' => Auth::user()->organization_id,
                 'status_id' => $status,
             ];
         })->toArray();

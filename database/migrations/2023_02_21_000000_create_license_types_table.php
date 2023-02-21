@@ -6,29 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('vacation_types', function (Blueprint $table) {
+        Schema::create('license_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('has_photo')->default(false);
-            $table->timestamps();
+            $table->integer('max_users_per_week')->nullable();
+            $table->timestamp('updated_at')->useCurrent()->nullable()->onUpdate('CURRENT_TIMESTAMP');
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('vacation_types');
+        Schema::dropIfExists('license_types');
         
     }
 };

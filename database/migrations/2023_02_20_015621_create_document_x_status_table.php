@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('document_x_status', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('organization_id');
             $table->bigInteger('document_type_id');
             $table->bigInteger('status_id');
         });

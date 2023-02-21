@@ -17,8 +17,7 @@ class DocumentType extends Model
 
     public function DocumentStatus()
     {
-        return $this->belongsToMany(DocumentStatus::class, 'document_x_status', 'document_type_id', 'status_id')
-            ->withPivot('organization_id');
+        return $this->belongsToMany(DocumentStatus::class, 'document_x_status', 'document_type_id', 'status_id');
         
     }
 

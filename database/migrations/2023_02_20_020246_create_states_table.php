@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id');
-            $table->string('rol_id');
-            $table->timestamp('updated_at')->useCurrent()->nullable()->onUpdate('CURRENT_TIMESTAMP');
-            $table->timestamp('created_at')->useCurrent();
+            $table->string('name');
+            $table->unsignedBigInteger('organization_id')->nullable();
+            $table->unsignedBigInteger('rol_id')->nullable();
+
+            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('rol_id')->references('id')->on('roles');
         });
     }
 

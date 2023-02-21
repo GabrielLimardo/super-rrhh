@@ -7,7 +7,7 @@ use SetaPDF_Signer_Pem as Pem;
 use App\Models\User;
 
 
-class CertificadoController extends Controller
+class CertificateController extends Controller
 {
     
     public static function newCertificado($id)
