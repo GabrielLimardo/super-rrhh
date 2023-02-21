@@ -25,6 +25,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('payment-history/export',[PaymentHistoryController::class,'export']);
 Route::get('payment-history/update',[PaymentHistoryController::class,'updatePaymentHistory']);
+Route::get('payment-history/pdfgenerate/{paymentType_id}/{user_id}',[PaymentHistoryController::class,'PDFgenerate']);
+
 
 Route::middleware([
     'auth:sanctum',

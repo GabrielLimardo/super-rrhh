@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
 use App\Exports\PaymentHistoryExport;
+use App\Models\PaymentTypes;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use PDF;
 
 
 class PaymentHistoryController extends Controller
@@ -113,4 +117,41 @@ class PaymentHistoryController extends Controller
         }
         return redirect()->back()->with('success', 'Update masivo exitoso.');
     }
+    public function masive($paymentType_id, $users_id)
+    {
+        //TODO tiene que guardarse en la carpeta de cada usuario y levantarse ccomo documento
+        foreach ($users_id as $user_id) {
+            $this->PDFgenerate($paymentType_id, $users_id);
+        }
+    }
+    public function PDFgenerate($paymentType_id,$user_id)
+    {
+        $selectedPaymentType = PaymentTypes::find($paymentType_id);
+        $selectedUser = User::find($user_id);
+        $discounts = $selectedPaymentType->paymentDiscounts;
+
+
+        $lastPaymentHistory = $selectedUser->paymentHistories()->latest()->first();
+        $salary = $lastPaymentHistory->salary;
+
+        $discountsArray = array();
+        foreach($discounts as $discount) {
+            $name = $discount->name;
+            $percentage = $discount->percentage;
+            $totalDiscounted = ($salary * $percentage) / 100;
+            $discountsArray[] = array('name' => $name, 'percentage' => $percentage, 'total_discounted' => $totalDiscounted);
+        }
+
+        $data = array(
+            'user' => $selectedUser,
+            'paymentType' => $selectedPaymentType,
+            'discounts' => $discountsArray,
+            'salary' => $salary
+        );
+
+        $pdf = PDF::loadView('salary_pdf', $data);
+
+        return $pdf->download('salary.pdf');
+    }
+
 }

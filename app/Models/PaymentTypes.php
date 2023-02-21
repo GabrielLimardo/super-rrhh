@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-
+use App\Models\PaymentDiscount;
+use App\Models\PaymentTax;
 class PaymentTypes extends Model
 {
     
@@ -14,32 +14,19 @@ class PaymentTypes extends Model
 
     protected $perPage = 20;
 
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name'];
 
     public $timestamps = false;
 
+    public function paymentTaxes()
+    {
+        return $this->hasMany(PaymentTax::class, 'payment_id', 'id');
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cargasImpositivas()
-    {
-        return $this->hasMany('PaymentTax', 'payment_id', 'id');
     }
     
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function descuentosSueldos()
+    public function paymentDiscounts()
     {
-        return $this->hasMany('PaymentDiscounts', 'payment_id', 'id');
+        return $this->hasMany(PaymentDiscount::class, 'payment_id', 'id');
     }
-    
-    
 
 }

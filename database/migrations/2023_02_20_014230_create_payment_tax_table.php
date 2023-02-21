@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payment_id')->constrained('payment_types');
             $table->string('name');
-            $table->decimal('porcentaje', 5, 2);
+            $table->decimal('percentage', 5, 2);
         });
     }
 
