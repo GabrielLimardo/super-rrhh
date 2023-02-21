@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentHistory extends Model
 {
-    
+    protected $table = 'payment_history';
+
     static $rules = [
-		'user_id' => 'required',
-		'amount' => 'required',
-		'last' => 'required',
+        'user_id' => 'required',
+        'amount' => 'required',
     ];
 
     public $timestamps = false;
     protected $perPage = 20;
 
-    protected $fillable = ['user_id','amount','last'];
+    protected $fillable = ['user_id','amount'];
 
 
     public function user()

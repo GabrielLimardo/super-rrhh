@@ -4,18 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
+use App\Exports\PaymentHistoryExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
-/**
- * Class PaymentHistoryController
- * @package App\Http\Controllers
- */
+
 class PaymentHistoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $paymentHistories = PaymentHistory::paginate();
@@ -23,24 +18,12 @@ class PaymentHistoryController extends Controller
         return view('payment-history.index', compact('paymentHistories'))
             ->with('i', (request()->input('page', 1) - 1) * $paymentHistories->perPage());
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $paymentHistory = new PaymentHistory();
         return view('payment-history.create', compact('paymentHistory'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate(PaymentHistory::$rules);
@@ -50,40 +33,18 @@ class PaymentHistoryController extends Controller
         return redirect()->route('payment-histories.index')
             ->with('success', 'PaymentHistory created successfully.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $paymentHistory = PaymentHistory::find($id);
 
         return view('payment-history.show', compact('paymentHistory'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $paymentHistory = PaymentHistory::find($id);
 
         return view('payment-history.edit', compact('paymentHistory'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  PaymentHistory $paymentHistory
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, PaymentHistory $paymentHistory)
     {
         request()->validate(PaymentHistory::$rules);
@@ -93,17 +54,63 @@ class PaymentHistoryController extends Controller
         return redirect()->route('payment-histories.index')
             ->with('success', 'PaymentHistory updated successfully');
     }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
         $paymentHistory = PaymentHistory::find($id)->delete();
 
         return redirect()->route('payment-histories.index')
             ->with('success', 'PaymentHistory deleted successfully');
+    }
+    public function export()
+    {
+        $export = new PaymentHistoryExport();
+        return Excel::download( $export ,'ExportFile.xlsx');
+
+    }
+    public function import(Request $request)
+    {
+
+        $file = $request->file('file');
+
+        Excel::import(new UserImport, $file);
+
+        return redirect()->back()->with('success', 'Archivo importado exitosamente.');
+
+    }
+    function updatePaymentHistory(Request $request)
+    {
+        $lastHistories = PaymentHistory::whereIn('user_id', $request->users)
+                                        ->selectRaw('user_id, MAX(id) AS max_id')
+                                        ->groupBy('user_id')
+                                        ->get();
+
+        $lastHistoryData = PaymentHistory::whereIn('id', $lastHistories->pluck('max_id'))
+                                            ->get()
+                                            ->keyBy('user_id');
+                                            
+        $newAmounts = collect();
+        foreach ($request->users as $userId) {
+            $lastAmount = $lastHistoryData->get($userId)->amount ?? 0;
+            $newAmount = $lastAmount * (1 + $request->percentage / 100);
+            $newAmounts->push([
+                'user_id' => $userId,
+                'amount' => $newAmount,
+            ]);
+        }
+
+        foreach ($newAmounts as $newAmount) {
+            $historyCount = PaymentHistory::where('user_id', $newAmount['user_id'])->count();
+            if ($historyCount >= 5) {
+                PaymentHistory::where('user_id', $newAmount['user_id'])
+                    ->orderBy('id', 'asc')
+                    ->limit($historyCount - 4)
+                    ->delete();
+            }
+            PaymentHistory::create([
+                'user_id' => $newAmount['user_id'],
+                'amount' => $newAmount['amount'],
+            ]);
+        }
+        return redirect()->back()->with('success', 'Update masivo exitoso.');
     }
 }
