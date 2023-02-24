@@ -48,17 +48,17 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'management edit'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'management destroy'])->syncRoles('SuperAdmin');
 
-        
+
         Permission::create(['name' => 'roles index'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'roles edit'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'roles destroy'])->syncRoles('SuperAdmin');
 
-                
+
         Permission::create(['name' => 'visual index'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'visual edit'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'visual destroy'])->syncRoles('SuperAdmin');
 
-       Permission::create(['name' => 'document type index'])->syncRoles('SuperAdmin');
+        Permission::create(['name' => 'document type index'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'document type edit'])->syncRoles('SuperAdmin');
         Permission::create(['name' => 'document type destroy'])->syncRoles('SuperAdmin');
 
@@ -90,5 +90,4 @@ class DatabaseSeeder extends Seeder
         $user = User::find(1)->assignRole('SuperAdmin');
         // $user->hasPermissionTo('publish articles', 'admin');
     }
-    
 }

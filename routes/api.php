@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobPostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TODO: Auth needs revising.Check Sanctum/Passport
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware("HandlePutFormData")->resource("jobposts", JobPostsController::class);
+Route::get('jobpostssearch', [JobPostsController::class, "search"]);

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $table = 'companies';
-    
-    protected $primaryKey= 'id';
+
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
@@ -21,4 +21,9 @@ class Company extends Model
         'organization_id'
 
     ];
+
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
 }
