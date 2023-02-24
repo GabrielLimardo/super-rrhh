@@ -12,11 +12,6 @@ use Illuminate\Http\Request;
 
 class DocumentTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $documentTypes = DocumentType::paginate();
@@ -24,64 +19,39 @@ class DocumentTypeController extends Controller
         return view('document-type.index', compact('documentTypes'))
             ->with('i', (request()->input('page', 1) - 1) * $documentTypes->perPage());
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $documentType = new DocumentType();
         $states = Status::where('organization_id',Auth::user()->organization_id)->get();
+        // return view('document-type.create', compact('documentType','states'));
         return view('document-type.create', compact('documentType','states'));
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    }
     public function store(Request $request)
     {
         // dd($request->listField);
         request()->validate(DocumentType::$rules);
 
         $documentType = DocumentType::create($request->all());
-        $array_listField = preg_split("/,/",$request->listField);
+        $statuses = $request->status;
 
-        foreach ( $array_listField  as $status) {
-            DocumentStatus::create([
-                'organization_id' => Auth::user()->organization_id,
+        $array_status = collect($statuses)->map(function ($status) {
+            return [
                 'status_id' => $status,
-                'document_type_id' => $documentType->id
-            ]);
-        }
+            ];
+        })->toArray();
+
+        $documentType->DocumentStatus()->sync($array_status);
 
         return redirect()->route('document-types.index')
             ->with('success', 'DocumentType created successfully.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $documentType = DocumentType::find($id);
 
         return view('document-type.show', compact('documentType'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $documentType = DocumentType::find($id);
@@ -89,29 +59,25 @@ class DocumentTypeController extends Controller
 
         return view('document-type.edit', compact('documentType','states'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  DocumentType $documentType
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, DocumentType $documentType)
     {
         request()->validate(DocumentType::$rules);
-
+        
         $documentType->update($request->all());
+
+        // $array_listField = preg_split("/,/",$request->listField);
+        $statuses = $request->status;
+        $array_status = collect($statuses)->map(function ($status) {
+            return [
+                'status_id' => $status,
+            ];
+        })->toArray();
+
+        $documentType->DocumentStatus()->sync($array_status);
 
         return redirect()->route('document-types.index')
             ->with('success', 'DocumentType updated successfully');
     }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
         $documentType = DocumentType::find($id)->delete();

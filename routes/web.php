@@ -10,18 +10,10 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\VisualController;
 use App\Http\Controllers\DocumentTypeController;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\PaymentTypesController;
+use App\Http\Controllers\PaymentHistoryController;
+use App\Http\Controllers\LicenseController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -29,7 +21,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('payment-history/export',[PaymentHistoryController::class,'export']);
+Route::get('payment-history/update',[PaymentHistoryController::class,'updatePaymentHistory']);
+Route::get('payment-history/pdfgenerate/{paymentType_id}/{user_id}',[PaymentHistoryController::class,'PDFgenerate']);
+
+
 
 Route::middleware([
     'auth:sanctum',
@@ -43,4 +42,11 @@ Route::middleware([
     Route::resource('organization',OrganizationController::class);
     Route::resource('visual',VisualController::class);
     Route::resource('document-types',DocumentTypeController::class);
+    Route::resource('payment-history',PaymentHistoryController::class);
+    Route::resource('payment-types',PaymentTypesController::class);
+    Route::resource('license-types',LicenseController::class);
+
+    Route::get('certificado',[CertificateController::class,'newCertificado']);
 });
+
+

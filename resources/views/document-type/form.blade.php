@@ -1,13 +1,29 @@
+@extends('adminlte::page')
+
 <!-- STYLES -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 
 <!-- pdfjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" integrity="sha512-tqaIiFJopq4lTBmFlWF0MNzzTpDsHyug8tJaaY0VkcH5AR2ANMJlcD+3fIL+RQ4JU3K6edt9OoySKfCCyKgkng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
 <script src="https://unpkg.com/jcrop"></script>
+
+@section('content') 
+<section class="content container-fluid"> 
+    {{-- <div class="row">
+        <div class="col-md-12">
+
+            @includeif('partials.errors')
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <span class="card-title">Create Document Type</span>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('document-types.store') }}"  role="form" enctype="multipart/form-data">
+                        @csrf --}}
 
 <div class="box box-info padding-1">
     <div class="box-body">
@@ -117,10 +133,6 @@
             {{ Form::text('sign_son_wide', $documentType->sign_son_wide, ['class' => 'form-control' . ($errors->has('sign_son_wide') ? ' is-invalid' : ''), 'placeholder' => 'Sign Son Wide']) }}
             {!! $errors->first('sign_son_wide', '<div class="invalid-feedback">:message</div>') !!}
         </div> --}}
-        <div class="col-12 mt-2">
-            <input name="listField" type="text" class="listField" id="listField">
-        </div>
-        
         <!-- Flujo documentos-->
         <div class="col-12 mt-2">
             <label class="label subtitulo">Flujo del documento</label>
@@ -204,22 +216,22 @@
                     <div class="accordion-body">
                         <div class="d-flex">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_arriba_izquierda_x') }}" id="c_arriba_izquierda_x" name="c_arriba_izquierda_x" placeholder="Coordenada X punto izquierdo superior">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_up_left_x') }}" id="c_up_left_x" name="c_up_left_x" placeholder="Coordenada X punto izquierdo superior">
                                 <label>Coordenada X punto izquierdo superior</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_arriba_izquierda_y') }}" id="c_arriba_izquierda_y" name="c_arriba_izquierda_y" placeholder="Coordenada Y punto izquierdo superior">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_up_left_y') }}" id="c_up_left_y" name="c_up_left_y" placeholder="Coordenada Y punto izquierdo superior">
                                 <label>Coordenada Y punto izquierdo superior</label>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_abajo_derecha_x') }}" id="c_abajo_derecha_x" name="c_abajo_derecha_x" placeholder="Coordenada X punto derecho inferior">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_down_right_x') }}" id="c_down_right_x" name="c_down_right_x" placeholder="Coordenada X punto derecho inferior">
                                 <label>Coordenada X punto derecho inferior</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_abajo_derecha_y') }}" id="c_abajo_derecha_y" name="c_abajo_derecha_y" placeholder="Coordenada Y punto izquierdo inferior">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_down_right_y') }}" id="c_down_right_y" name="c_down_right_y" placeholder="Coordenada Y punto izquierdo inferior">
                                 <label>Coordenada Y punto derecho inferior</label>
                             </div>
                         </div>
@@ -237,22 +249,22 @@
 
                         <div class="d-flex mt-4">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleador_x') }}" id="c_empleador_x" name="c_empleador_x" placeholder="Coordenada Empleador X">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_father_x') }}" id="sign_father_x" name="sign_father_x" placeholder="Coordenada Empleador X">
                                 <label>Coordenada Empleador X</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleador_y') }}" id="c_empleador_y" name="c_empleador_y" placeholder="Coordenada Empleador Y">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_father_y') }}" id="sign_father_y" name="sign_father_y" placeholder="Coordenada Empleador Y">
                                 <label>Coordenada Empleador Y</label>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('alto_empleador') }}" id="alto_empleador" name="alto_empleador" placeholder="Alto Empleador">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_father_high') }}" id="sign_father_high" name="sign_father_high" placeholder="Alto Empleador">
                                 <label>Alto P/Firma Empleador</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('ancho_empleador') }}" id="ancho_empleador" name="ancho_empleador" placeholder="Ancho Empleador">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_father_wide') }}" id="sign_father_wide" name="sign_father_wide" placeholder="Ancho Empleador">
                                 <label>Ancho P/Firma Empleador</label>
                             </div>
                         </div>
@@ -271,22 +283,22 @@
 
                         <div class="d-flex">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleado_x') }}" id="c_empleado_x" name="c_empleado_x" placeholder="Coordenada Empleado X">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_son_x') }}" id="sign_son_x" name="sign_son_x" placeholder="Coordenada Empleado X">
                                 <label>Coordenada Empleado X</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('c_empleado_y') }}" id="c_empleado_y" name="c_empleado_y" placeholder="Coordenada Empleado Y">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_son_y') }}" id="sign_son_y" name="sign_son_y" placeholder="Coordenada Empleado Y">
                                 <label>Coordenada Empleado Y</label>
                             </div>
                         </div>
 
                         <div class="d-flex">
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('alto_empleado') }}" id="alto_empleado" name="alto_empleado" placeholder="Alto Empleador">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_son_high') }}" id="sign_son_high" name="sign_son_high" placeholder="Alto Empleador">
                                 <label>Alto P/Firma Empleado</label>
                             </div>
                             <div class="col-md-6 form-floating mb-1">
-                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('ancho_empleado') }}" id="ancho_empleado" name="ancho_empleado" placeholder="Ancho Empleador">
+                                <input type="int" autocomplete="off" class="col form-control" value="{{ old('sign_son_wide') }}" id="sign_son_wide" name="sign_son_wide" placeholder="Ancho Empleador">
                                 <label>Ancho P/Firma Empleado</label>
                             </div>
                         </div>
@@ -301,7 +313,15 @@
     </div>
 </div>
 
-<style>
+{{-- </form>
+</div>
+</div>
+</div>
+</div> --}}
+</section>
+@endsection
+
+{{-- <style>
     #listField {
         display: none;
     }
@@ -375,7 +395,8 @@
     .estados .contenido {
         display: flex;
     }
-</style>
+    
+</style> --}}
 
 @section('js')
 
@@ -440,7 +461,9 @@
 
     // jcrop configuration function
     function jcropConfig() {
+
         const jcrop = Jcrop.attach('img', {
+            shadeColor: 'red',
             multi: false
         })
 
@@ -462,22 +485,23 @@
                 document.getElementById('c_abajo_derecha_y').value = img_height - (widget.pos.y + widget.pos.h);
             }
 
-            if ($('#empleador-button').attr('aria-expanded') == 'true') {
-                document.getElementById('c_empleador_x').value = widget.pos.x;
-                document.getElementById('c_empleador_y').value = -widget.pos.y;
-                document.getElementById('alto_empleador').value = widget.pos.h;
-                document.getElementById('ancho_empleador').value = widget.pos.w;
-            }
-
-            if ($('#empleado-button').attr('aria-expanded') == 'true') {
-                document.getElementById('c_empleado_x').value = widget.pos.x;
-                document.getElementById('c_empleado_y').value = -widget.pos.y;
-                document.getElementById('alto_empleado').value = widget.pos.h;
-                document.getElementById('ancho_empleado').value = widget.pos.w;
-            }
 
         });
     }
+                // if ($('#empleador-button').attr('aria-expanded') == 'true') {
+            //     document.getElementById('c_empleador_x').value = widget.pos.x;
+            //     document.getElementById('c_empleador_y').value = -widget.pos.y;
+            //     document.getElementById('alto_empleador').value = widget.pos.h;
+            //     document.getElementById('ancho_empleador').value = widget.pos.w;
+            // }
+
+            // if ($('#empleado-button').attr('aria-expanded') == 'true') {
+            //     document.getElementById('c_empleado_x').value = widget.pos.x;
+            //     document.getElementById('c_empleado_y').value = -widget.pos.y;
+            //     document.getElementById('alto_empleado').value = widget.pos.h;
+            //     document.getElementById('ancho_empleado').value = widget.pos.w;
+            // }
+
     </script>
 
     <script>
