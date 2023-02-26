@@ -457,25 +457,50 @@ return [
             'can' => 'tool signer index',
         ],
         [
-            'text' => 'Staff search',
+            'text' => 'Staff search ',
             'url'  => '#',
             'icon' => 'fas fa-search',
             'can' => 'tool staff search index',
         ],
         [
-            'text' => 'Staff Development',
+            'text' => 'Tools PDF (Soon)',
+            'url'  => '#',
+            'icon' => 'fas fa-file-pdf',
+            'can' => 'tool staff development index',
+            'submenu' => [
+                [
+                    'text' => 'Split tool',
+                    'url'  => '',
+                ],
+                [
+                    'text' => 'Merge Tool',
+                    'url'  => '',
+                ],
+                [
+                    'text' => 'Lock tool',
+                    'url'  => '',
+                ],
+                [
+                    'text' => 'Unlock tool',
+                    'url'  => '',
+                ]
+            ]
+        ],
+
+        [
+            'text' => 'Trial Test (Soon)',
             'url'  => '#',
             'icon' => 'fas fa-running',
             'can' => 'tool staff development index',
         ],
         [
-            'text' => 'Tools PDF',
+            'text' => 'Staff Development (Soon)',
             'url'  => '#',
-            'icon' => 'fas fa-file-pdf',
+            'icon' => 'fas fa-smile',
             'can' => 'tool staff development index',
         ],
         [
-            'text' => 'Rrhh help',
+            'text' => 'Rrhh help (Soon)',
             'url'  => '#',
             'icon' => 'fas fa-phone',
             'can' => 'tool rrhh help index',
