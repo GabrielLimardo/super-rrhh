@@ -43,6 +43,10 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'fs_disk' => [
+            'driver' => 'local',
+            'root' => storage_path('mnt/fs/'),
+        ],
 
         's3' => [
             'driver' => 's3',
