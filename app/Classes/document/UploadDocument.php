@@ -3,6 +3,7 @@
 namespace App\Classes\document;
 use App\Models\User;
 use App\Models\DocumentsPack;
+use Illuminate\Support\Facades\Storage;
 
 class UploadDocument
 {
@@ -75,9 +76,8 @@ class UploadDocument
     }
     public function store_file($request, $organization, $user)
     {
-        $storage_path = Storage::disk('fs_disk')->path($organization . '/' . date('Ymd_His') . '_' . $user . '_' . uniqid() . '.pdf');
-        $request->file('document')->move(dirname($storage_path), basename($storage_path));
-        $file_path = $request->file('document')->path();
+        $storage_path = Storage::disk('fs_disk')->putFileAs($organization, $request->file('document'), date('Ymd_His') . '_' . $user . '_' . uniqid() . '.pdf');
+        $file_path = $storage_path;
         return $file_path;
     }
 }

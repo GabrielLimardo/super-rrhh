@@ -45,7 +45,7 @@ return [
         ],
         'fs_disk' => [
             'driver' => 'local',
-            'root' => storage_path(env('APP_NAME', 'mnt/fs/')),
+            'root' => env('FS_ROOT', 'mnt/fs/'),
         ],
 
         's3' => [

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Models\DocumentType;
-use Illuminate\Support\Facades\Storage;
 use App\Classes\document\UploadDocument;
 class DocumentController extends Controller
 {
@@ -76,10 +75,10 @@ class DocumentController extends Controller
             if ($document_type->masive == 1) {
                 $user = 1;
                 // $user =  Auth::user()->id;
-               $this->store_file($request, $organization, $user);
+               $corteClass->store_file($request, $organization, $user);
             }else {
                 foreach ($query as $document) {
-                    $this->store_file($request, $organization, $document->user_id);
+                    $corteClass->store_file($request, $organization, $document->user_id);
                 }
 
             }
