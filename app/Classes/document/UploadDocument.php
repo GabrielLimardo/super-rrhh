@@ -4,6 +4,7 @@ namespace App\Classes\document;
 use App\Models\User;
 use App\Models\DocumentsPack;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Document;
 
 class UploadDocument
 {
@@ -83,4 +84,60 @@ class UploadDocument
     {
         $file->storeAs($route, $file_name, 'fs_disk');
     }
+
+    public function masive_document($file,$basename_file,$route )
+    {
+        $fileName = $file->getClientOriginalName();
+        if ($basename_file == 'document_nro') {
+            $validation = $this->validateDocuments($fileName, $basename_file);
+        }else {
+            $validation =  $this->validateDocuments($fileName, $basename_file);
+        }
+   
+        if ($validation['valid']) {
+
+            $query = User::where('id', $validation['user']->id)->get();
+
+            // Call the array() function to build the array of documents
+            $documentos_array = $this->array($query);
+            $file_name= $documentos_array[0]['file_path'];
+            $this->store_file($route, $file_name, $file);
+            // Loop through the array of documents and save each one
+            foreach ($documentos_array as $documento_array) {
+                $documento = new Document($documento_array);
+                $documento->save();
+                $documentos[] = $documento->id;
+            }
+        } else {
+            $doc = [
+                'nombre' => $fileName,
+                'error' => $validation['msj']
+            ];
+            $errores[] = $doc;
+        }
+    }
+
+    public static function validateDocuments($fileName, $basename_file) {
+        $errors = [];
+        $dni = explode(".", $fileName);
+        $user = null;
+        
+        if ($basename_file == 'document_nro') {
+            $user = User::where('document_nro', $dni[0])->first();
+        } else {
+            $user = User::where('labor_profile', $dni[0])->first();
+        }
+    
+        if (!$user) {
+            $errors[] = 'User not found';
+        }
+
+    
+        return [
+            'valid' => empty($errors),
+            'errors' => $errors,
+            'user' => $user
+        ];
+    }
+
 }

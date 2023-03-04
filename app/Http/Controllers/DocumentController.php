@@ -76,20 +76,26 @@ class DocumentController extends Controller
                 $uploadDocument = new UploadDocument($data);
                 // $route = Auth::user()->organization_id.'/';
                 $route = $organization . '/';
-                $query = $uploadDocument->query();
-                $info = $uploadDocument->array($query);
-                Document::insert($info->toArray());
-                if ($document_type->masive == 1) {
-                    if (isset($info[0]['file_path'])) {
-                        $file_name = $info[0]['file_path'];
-                        $uploadDocument->store_file($route, $file_name, $file);
-                    }
-                } else {
-                    foreach ($info as $documento) {
-                        $file_name = $documento['file_path'];
-                        $uploadDocument->store_file($route, $file_name, $file);
+                $basename_file = $request->input('basename_file');
+                if ($basename_file) {
+                    $uploadDocument->masive_document($file,$basename_file,$route);
+                }else {
+                    $query = $uploadDocument->query();
+                    $info = $uploadDocument->array($query);
+                    Document::insert($info->toArray());
+                    if ($document_type->masive == 1) {
+                        if (isset($info[0]['file_path'])) {
+                            $file_name = $info[0]['file_path'];
+                            $uploadDocument->store_file($route, $file_name, $file);
+                        }
+                    } else {
+                        foreach ($info as $documento) {
+                            $file_name = $documento['file_path'];
+                            $uploadDocument->store_file($route, $file_name, $file);
+                        }
                     }
                 }
+                
             }
         }
     }
