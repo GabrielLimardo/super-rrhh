@@ -66,33 +66,32 @@ class DocumentController extends Controller
         //TODO cambiar organization y poner seguridad que no pueda subir si no esta registrado en esa organization el tipo de documento
         $organization = 1;
         $document_type = DocumentType::find($document_type);
-        if ($document_type) {
-            $data = [
-                'request' => $request,
-                'masive' =>$document_type->masive == 1 ? true: false
-            ];
-            $uploadDocument = new UploadDocument($data);
-            // $route = Auth::user()->organization_id.'/';
-            $route = $organization.'/';
-            $file = $request->file('document');
-            $query =  $uploadDocument ->query();
-            $info =  $uploadDocument ->array($query);
-            Document::insert($info->toArray());
-            if ($document_type->masive == 1) {
-                if (isset($info[0]['file_path'])) {
-                    $file_name = $info[0]['file_path']; 
-                    $uploadDocument ->store_file($route, $file_name,$file);
-                }   
-            }
-            else {
-                foreach ($info as $documento) {
-                    $file_name = $documento['file_path'];
-                    $uploadDocument ->store_file($route, $file_name,$file);
+        $files = $request->file('document');
+        foreach ($files as $file) {
+            if ($document_type) {
+                $data = [
+                    'request' => $request,
+                    'masive' => $document_type->masive == 1 ? true : false
+                ];
+                $uploadDocument = new UploadDocument($data);
+                // $route = Auth::user()->organization_id.'/';
+                $route = $organization . '/';
+                $query = $uploadDocument->query();
+                $info = $uploadDocument->array($query);
+                Document::insert($info->toArray());
+                if ($document_type->masive == 1) {
+                    if (isset($info[0]['file_path'])) {
+                        $file_name = $info[0]['file_path'];
+                        $uploadDocument->store_file($route, $file_name, $file);
+                    }
+                } else {
+                    foreach ($info as $documento) {
+                        $file_name = $documento['file_path'];
+                        $uploadDocument->store_file($route, $file_name, $file);
+                    }
                 }
-            } 
+            }
         }
-
-        
     }
 
                     
