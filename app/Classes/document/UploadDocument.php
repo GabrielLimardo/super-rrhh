@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Storage;
 class UploadDocument
 {
     protected $request;
+    protected $masive;
+    protected $file_name;
+    protected $file_path;
     protected $document_pack;
     public function __construct(array $data)
     {
         $this->request = $data['request'];
+        $this->masive = $data['masive'];
         $this->document_pack = DocumentsPack::create(['name' => date('Y-m-d_H:i:s') . '_' . uniqid()]);
     }
     public function query()
@@ -53,15 +57,16 @@ class UploadDocument
     }
     public function array($query)
     {
-
-        $documentos = $query->map(function ($usuario) {
+        //TODO $usuario = Auth::user()->id;
+        $usuario = 1;
+        $file_name_one = date('Ymd_His') . '_' . $usuario . '_' . uniqid() . '.pdf';
+        $documentos = $query->map(function ($usuario)use ($file_name_one) {
+            //TODO $user =  Auth::user()->id;
+            $file_name = $this->masive ? $file_name_one : date('Ymd_His') . '_' . $usuario->id . '_' . uniqid() . '.pdf';
             return [
-                'file_path' => 'ruta/al/archivo',
-                // reemplazar con la ruta correcta
+                'file_path' => $file_name,
                 'document_type_id' => 1,
-                // reemplazar con el ID correcto del tipo de documento
                 'state_id' => 1,
-                // reemplazar con el ID correcto del estado del documento
                 'user_id' => $usuario->id,
                 'dissatisfied_text' => null,
                 'extra_filter' => null,
@@ -74,10 +79,8 @@ class UploadDocument
         });
         return $documentos;
     }
-    public function store_file($request, $organization, $user)
+    public function store_file($route, $file_name,$file)
     {
-        $storage_path = Storage::disk('fs_disk')->putFileAs($organization, $request->file('document'), date('Ymd_His') . '_' . $user . '_' . uniqid() . '.pdf');
-        $file_path = $storage_path;
-        return $file_path;
+        $file->storeAs($route, $file_name, 'fs_disk');
     }
 }

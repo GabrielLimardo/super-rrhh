@@ -46,6 +46,8 @@ return [
         'fs_disk' => [
             'driver' => 'local',
             'root' => env('FS_ROOT', 'mnt/fs/'),
+            'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [
