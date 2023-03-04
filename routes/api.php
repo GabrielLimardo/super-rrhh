@@ -16,5 +16,5 @@ Route::middleware("HandlePutFormData")->resource("jobposts", JobPostsController:
 Route::get('jobpostssearch', [JobPostsController::class, "search"]);
 
 Route::post('license-types/createLicense',[LicenseController::class,'createLicense']);
-Route::post('upload/individual',[DocumentController::class,'individual']);
+Route::post('upload',[DocumentController::class,'upload']);
 

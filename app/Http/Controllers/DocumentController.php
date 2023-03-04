@@ -60,7 +60,7 @@ class DocumentController extends Controller
         return redirect()->route('documents.index')
             ->with('success', 'Document deleted successfully');
     }
-    public function individual(Request $request)
+    public function upload(Request $request)
     {
         $document_type = $request->input('type');
         //TODO cambiar organization y poner seguridad que no pueda subir si no esta registrado en esa organization el tipo de documento
