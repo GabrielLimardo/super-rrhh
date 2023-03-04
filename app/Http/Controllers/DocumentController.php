@@ -79,8 +79,10 @@ class DocumentController extends Controller
             $info =  $uploadDocument ->array($query);
             Document::insert($info->toArray());
             if ($document_type->masive == 1) {
-                $file_name = $info[0]['file_path']; 
-                $uploadDocument ->store_file($route, $file_name,$file);
+                if (isset($info[0]['file_path'])) {
+                    $file_name = $info[0]['file_path']; 
+                    $uploadDocument ->store_file($route, $file_name,$file);
+                }   
             }
             else {
                 foreach ($info as $documento) {
