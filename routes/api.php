@@ -6,12 +6,4 @@ use App\Http\Controllers\JobPostsController;
 use App\Http\Controllers\LicenseController;
 
 
-// TODO: Auth needs revising.Check Sanctum/Passport
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::middleware("HandlePutFormData")->resource("jobposts", JobPostsController::class);
-Route::get('jobpostssearch', [JobPostsController::class, "search"]);
-
-Route::post('license-types/createLicense',[LicenseController::class,'createLicense']);
+Route::post('license-types/createLicense', [LicenseController::class, 'createLicense']);

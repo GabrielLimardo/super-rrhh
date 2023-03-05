@@ -11,17 +11,16 @@ class JobPost extends Model
 {
     use HasFactory, ScopesTrait;
 
-    protected $table = 'job_posts';
+    protected $table = 'new_job_posts';
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id',
         'job_category',
         'job_subcategory',
         'position_name',
         'position_description',
-        'company_name',
+        'company_id',
         'work_modality',
         'job_location',
         'job_salary',
@@ -32,13 +31,12 @@ class JobPost extends Model
         'job_category' => "required",
         'position_name' => "required",
         'position_description' => "required",
-        'company_name' => "required",
         'work_modality' => "required",
     ];
 
     public function company()
     {
-        return $this->belongsTo(Company::class, "company_id");
+        return $this->belongsTo(Company::class, "company_id")->select('id', 'fantasy_name');
     }
 
     public function scopeHasFilter(Builder $query)
@@ -50,6 +48,15 @@ class JobPost extends Model
 
                 switch ($filter) {
 
+                    case 'job_category':
+
+                        $validOptions = ["Architecture and engineering", "Arts, culture and entertainment", "Business", "Communications", "Community and social services", "Education", "Farming, fishing and forestry", "Government", "Healthcare", "Installation, repairs and maintenance", "Law", "Media and entertainment", "Sales", "Science and technology"];
+                        if (!in_array($value, $validOptions)) {
+                            throw new \Exception("Invalid job category.");
+                        }
+                        $query->where($filter, '=', $value);
+
+                        break;
                     case 'job_salary':
                         $validOperators = ['<', '>', "="];
                         $operator = request("operator", "=");
@@ -66,7 +73,7 @@ class JobPost extends Model
                         $query->where($filter, '=', $value);
                         break;
                     case 'fantasy_name':
-                        $query->join('companies', 'companies.id', '=', 'job_posts.company_id')
+                        $query->join('companies', 'companies.id', '=', 'new_job_posts.company_id')
                             ->where('companies.fantasy_name', 'LIKE', '%' . $value . '%');
                         break;
                     default:
@@ -75,7 +82,7 @@ class JobPost extends Model
                 }
             }
         }
+
         return $query;
     }
 }
-   
