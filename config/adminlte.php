@@ -458,7 +458,7 @@ return [
             'can' => 'tool staff search index',
         ],
         [
-            'text' => 'Tools PDF (Soon)',
+            'text' => 'Tools PDF',
             'url'  => '#',
             'icon' => 'fas fa-file-pdf',
             'can' => 'tool staff development index',
@@ -483,13 +483,13 @@ return [
         ],
 
         [
-            'text' => 'Trial Test (Soon)',
+            'text' => 'Trial Test ',
             'url'  => '#',
             'icon' => 'fas fa-running',
             'can' => 'tool staff development index',
         ],
         [
-            'text' => 'Staff Development (Soon)',
+            'text' => 'Staff Development',
             'url'  => '#',
             'icon' => 'fas fa-smile',
             'can' => 'tool staff development index',
