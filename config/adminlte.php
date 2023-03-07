@@ -413,7 +413,7 @@ return [
        
         ['header' => 'UPLOAD DOCUMENTS'],
         [
-            'text' => 'Individual upload',
+            'text' => 'Upload',
             'url'  => '#',
             'icon' => 'fas fa-file-alt',
             'can' => 'individual upload',
@@ -424,12 +424,7 @@ return [
             'icon' => 'fas fa-cut',
             'can' => 'split upload',
         ],
-        [
-            'text' => 'Masive upload',
-            'url'  => '#',
-            'icon' => 'fas fa-copy',
-            'can' => 'masive upload',
-        ],
+
         [
             'text' => 'Signer documents',
             'url'  => '#',
