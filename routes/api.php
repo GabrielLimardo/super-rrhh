@@ -15,6 +15,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware("HandlePutFormData")->resource("jobposts", JobPostsController::class);
 Route::get('jobpostssearch', [JobPostsController::class, "search"]);
 
-Route::post('license-types/createLicense',[LicenseController::class,'createLicense']);
+// Route::post('license-types/createLicense',[LicenseController::class,'createLicense']);
 Route::post('upload',[DocumentController::class,'upload']);
 
+Route::post('createone',[LicenseController::class,'createLicense']);

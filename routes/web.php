@@ -13,7 +13,7 @@ use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\PaymentTypesController;
 use App\Http\Controllers\PaymentHistoryController;
-use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\LicenseTypeController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -44,7 +44,7 @@ Route::middleware([
     Route::resource('document-types',DocumentTypeController::class);
     Route::resource('payment-history',PaymentHistoryController::class);
     Route::resource('payment-types',PaymentTypesController::class);
-    Route::resource('license-types',LicenseController::class);
+    Route::resource('license-types',LicenseTypeController::class);
 
     Route::get('certificado',[CertificateController::class,'newCertificado']);
 });
