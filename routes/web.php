@@ -14,6 +14,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\PaymentTypesController;
 use App\Http\Controllers\PaymentHistoryController;
 use App\Http\Controllers\LicenseTypeController;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -31,8 +32,7 @@ Route::get('payment-history/pdfgenerate/{paymentType_id}/{user_id}',[PaymentHist
 
 
 Route::middleware([
-    'auth:sanctum',
-
+    'auth:api'
 ])->group(function () {
     Route::resource('users',UserController::class);
     Route::resource('companies',CompanyController::class);
