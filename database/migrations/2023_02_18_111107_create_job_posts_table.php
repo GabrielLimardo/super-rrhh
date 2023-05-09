@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('job_location')->nullable();
             $table->decimal('job_salary')->nullable();
             $table->string('keywords')->nullable();
-            $table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade");
+            // $table->foreign("company_id")->references("id")->on("companies")->onDelete("cascade");
             $table->timestamps();
         });
     }

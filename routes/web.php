@@ -24,16 +24,17 @@ Auth::routes();
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('payment-history/export',[PaymentHistoryController::class,'export']);
 Route::get('payment-history/update',[PaymentHistoryController::class,'updatePaymentHistory']);
 Route::get('payment-history/pdfgenerate/{paymentType_id}/{user_id}',[PaymentHistoryController::class,'PDFgenerate']);
 
-
+// Route::resource('users',UserController::class);
 
 Route::middleware([
-    'auth:api'
+    'auth:web'
 ])->group(function () {
+
     Route::resource('users',UserController::class);
     Route::resource('companies',CompanyController::class);
     Route::resource('branches',BranchController::class);

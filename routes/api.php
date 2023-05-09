@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobPostsController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\SignerController;
+// use App\Http\Controllers\api\SignerController;
 use App\Http\Controllers\api\AuthController;
 
 
@@ -27,11 +27,11 @@ Route::middleware([
 
     // Route::middleware("HandlePutFormData")->resource("jobposts", JobPostsController::class);
     // Route::get('jobpostssearch', [JobPostsController::class, "search"]);
-    
+
     // // Route::post('license-types/createLicense',[LicenseController::class,'createLicense']);
     // Route::post('upload',[DocumentController::class,'upload']);
-    
+
     // Route::post('createone',[LicenseController::class,'createLicense']);
-    Route::post('electronic',[SignerController::class,'electronic']);
+    // Route::post('electronic',[SignerController::class,'electronic']);
 
 });
